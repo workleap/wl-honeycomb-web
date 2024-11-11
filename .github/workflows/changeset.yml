@@ -1,0 +1,62 @@
+name: Changesets
+
+# Pnpm setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
+
+on:
+  push:
+    branches: ["main"]
+env:
+  CI: true
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # required for provenance https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ">=21.1.0"
+          check-latest: true,
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache turborepo
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+          save-always: true
+
+      - name: Build lib
+        run: pnpm ci-build
+
+      - name: Create release Pull Request or publish to NPM
+        uses: changesets/action@v1
+        with:
+          commit: "ci(changesets): version packages"
+          title: "Changeset: New Version"
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: pnpm publish-lib
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.WORKLEAP_NPM_TOKEN }}

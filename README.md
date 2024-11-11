@@ -1,0 +1,19 @@
+# wl-honeycomb-web
+
+TBD
+
+## Have a question or found an issue?
+
+To ask a question or propose an idea, feel free to start a new [discussion](https://github.com/gsoft-inc/wl-honeycomb-web/discussions). If you found a bug, please open an [issue](https://github.com/gsoft-inc/wl-honeycomb-web/issues).
+
+## Documentation
+
+View the [user's documentation](https://gsoft-inc.github.io/wl-honeycomb-web).
+
+## 🤝 Contributing
+
+View the [contributor's documentation](./CONTRIBUTING.md).
+
+## License
+
+Copyright © 2024, Workleap This code is licensed under the Apache License, Version 2.0. You may obtain a copy of this license at https://github.com/gsoft-inc/workleap-license/blob/master/LICENSE.

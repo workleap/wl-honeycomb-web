@@ -1,0 +1,27 @@
+{
+    "$schema": "https://turbo.build/schema.v1.json",
+    "pipeline": {
+        "dev": {
+            "dependsOn": ["build"],
+            "outputs": ["dist/**"],
+            "persistent": true,
+            "outputMode": "new-only"
+        },
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"],
+            "outputMode": "new-only"
+        },
+        "serve-build": {
+            "dependsOn": ["build"],
+            "cache": false,
+            "persistent": true,
+            "outputMode": "new-only"
+        },
+        "deploy": {
+            "dependsOn": ["build"],
+            "outputs": ["dist/**"],
+            "outputMode": "new-only"
+        }
+    }
+}

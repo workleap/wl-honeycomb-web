@@ -1,0 +1,22 @@
+# Logs
+logs
+*.log
+pnpm-debug.log*
+
+node_modules
+dist
+build
+dist-ssr
+*.local
+
+# Editor directories and files
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# npm pack
+*.tgz
