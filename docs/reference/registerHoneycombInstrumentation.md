@@ -16,9 +16,11 @@ registerHoneycombInstrumentation(serviceName, apiServiceUrls: [string | Regex], 
 
 ## Customize backend URLs
 
-Avoid using `/.+/g,` in production for the `apiServiceUrls` argument, as it could expose customer data to third parties. Instead, ensure you specify values that accurately matches your application's backend URLs.
+!!!warning
+Avoid using `/.+/g,` in production as it could expose customer data to third parties.
+!!!
 
-For example, if your backend services are hosted at `workleap.com/api`:
+Specify values for the `apiServiceUrls` argument that matches your application's backend URLs. For example, if your backend services are hosted at `https://workleap.com/api`:
 
 ```ts !#5
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
@@ -51,7 +53,7 @@ registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
 
 ### `apiKey`
 
-!!!info
+!!!warning
 Prefer using an [OpenTelemetry collector](https://docs.honeycomb.io/send-data/opentelemetry/collector/) over an ingestion [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/#create-api-key), as API keys can expose Workleap to potential attacks.
 !!!
 
