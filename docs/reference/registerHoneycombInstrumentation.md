@@ -14,6 +14,25 @@ Initializes an instance of [Honeycomb Web SDK](https://docs.honeycomb.io/send-da
 registerHoneycombInstrumentation(serviceName, apiServiceUrls: [string | Regex], options?: {})
 ```
 
+### Parameters
+
+- `serviceName`: Honeycomb application service name.
+- `apiServiceUrls`: A `RegExp` or `string` that matches the URLs of the application's backend services. If unsure, use the temporary regex `/.+/g,` to match all URLs.
+- `options`: An optional object literal of [predefined options](#predefined-options).
+
+### Returns
+
+Nothing
+
+### Default instrumentation
+
+The `registerHoneycombInstrumentation` function registers the following OpenTelemetry instrumentations by default:
+
+- [@opentelemetry/instrumentation-fetch](https://github.com/open-telemetry/opentelemetry-js/tree/main/experimental/packages/opentelemetry-instrumentation-fetch)
+- [@opentelemetry/instrumentation-document-load](https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/plugins/web/opentelemetry-instrumentation-document-load)
+
+For more details, refer to the [registerHoneycombInstrumentation.ts](https://github.com/gsoft-inc/wl-honeycomb-web/blob/main/lib/src/registerHoneycombInstrumentation.ts) file on GitHub.
+
 ## Customize backend URLs
 
 !!!warning
