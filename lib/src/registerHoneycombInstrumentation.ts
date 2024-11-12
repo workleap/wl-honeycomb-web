@@ -1,5 +1,4 @@
 import { HoneycombWebSDK } from "@honeycombio/opentelemetry-web";
-import type { Span } from "@opentelemetry/api";
 import { getWebAutoInstrumentations, type InstrumentationConfigMap } from "@opentelemetry/auto-instrumentations-web";
 import type { DocumentLoadInstrumentationConfig } from "@opentelemetry/instrumentation-document-load";
 import type { FetchInstrumentationConfig } from "@opentelemetry/instrumentation-fetch";

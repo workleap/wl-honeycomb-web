@@ -1,22 +1,10 @@
-# Logs
-logs
-*.log
-pnpm-debug.log*
-
 node_modules
 dist
-build
-dist-ssr
-*.local
+.pnpm-debug.log*
+.netlify
+.turbo
+.retype
 
-# Editor directories and files
-.idea
+# Mac
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# npm pack
-*.tgz
+*.pem
