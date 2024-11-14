@@ -3,8 +3,8 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerHoneycombInstrumentation("honeycomb-sample", [/http:\/\/localhost:1234\.*/], {
-    apiKey: "123",
+registerHoneycombInstrumentation("honeycomb-lib-sample", [/http:\/\/localhost:1234\.*/], {
+    apiKey: "",
     debug: true
 });
 

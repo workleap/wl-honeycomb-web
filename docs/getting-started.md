@@ -109,6 +109,7 @@ Most application needs to set custom attributes on traces about the current user
 Update your application bootstrapping code to include the `setGlobalSpanAttributes` function:
 
 TBD
+<br />
 TBD
 
 Now, every trace recorded after the session initialization will include the custom attribute `app.user_id`:
