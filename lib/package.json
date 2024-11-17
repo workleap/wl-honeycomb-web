@@ -36,8 +36,6 @@
         "@opentelemetry/auto-instrumentations-web": "*"
     },
     "devDependencies": {
-        "@changesets/changelog-github": "0.5.0",
-        "@changesets/cli": "2.27.9",
         "@opentelemetry/instrumentation": "0.54.2",
         "@opentelemetry/instrumentation-document-load": "0.41.0",
         "@opentelemetry/instrumentation-fetch": "0.54.2",
@@ -47,7 +45,6 @@
         "@swc/core": "1.9.2",
         "@swc/jest": "0.2.37",
         "@types/jest": "29.5.14",
-        "@types/uuid": "10.0.0",
         "@typescript-eslint/parser": "8.14.0",
         "@workleap/eslint-plugin": "3.2.3",
         "@workleap/swc-configs": "2.2.3",
@@ -58,9 +55,6 @@
         "jest-environment-jsdom": "29.7.0",
         "tsup": "8.3.5",
         "typescript": "5.5.4"
-    },
-    "dependencies": {
-        "uuid": "11.0.3"
     },
     "sideEffects": false,
     "engines": {

@@ -1,0 +1,46 @@
+{
+    "name": "@sample/app",
+    "author": "Workleap",
+    "version": "0.0.0",
+    "description": "Application to showcase the shared Honeycomb configuration library.",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon",
+        "build": "pnpm build:webpack && pnpm build:copy-public-files",
+        "build:webpack": "webpack --config webpack.build.js",
+        "build:copy-public-files": "copyfiles -u 1 public/favicon.png dist",
+        "serve-build": "pnpm http-server dist -p 8080 -P http://localhost:8080? -c-1"
+    },
+    "devDependencies": {
+        "@swc/core": "1.9.2",
+        "@swc/helpers": "0.5.15",
+        "@tanstack/react-query": "5.59.20",
+        "@types/react": "18.3.12",
+        "@types/react-dom": "18.3.1",
+        "@workleap/browserslist-config": "2.0.1",
+        "@workleap/eslint-plugin": "3.2.3",
+        "@workleap/swc-configs": "2.2.3",
+        "@workleap/typescript-configs": "3.0.2",
+        "@workleap/webpack-configs": "1.5.1",
+        "browserslist": "4.24.2",
+        "copyfiles": "2.4.1",
+        "eslint": "8.57.0",
+        "http-server": "14.1.1",
+        "nodemon": "3.1.7",
+        "typescript": "5.5.4",
+        "webpack": "5.96.1",
+        "webpack-cli": "5.1.4",
+        "webpack-dev-server": "5.1.0"
+    },
+    "dependencies": {
+        "@workleap/honeycomb": "workspace:*",
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-router-dom": "6.28.0"
+    },
+    "engines": {
+        "node": ">=21.1.0"
+    }
+}

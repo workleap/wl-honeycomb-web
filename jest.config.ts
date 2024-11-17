@@ -2,7 +2,7 @@ import type { Config } from "jest";
 
 const config: Config = {
     projects: [
-        "<rootDir>/packages/*"
+        "<rootDir>/lib"
     ],
     testRegex: "/tests/*/.*\\.test\\.(ts|tsx)$",
     testPathIgnorePatterns: ["/node_modules/", "/dist/"],
