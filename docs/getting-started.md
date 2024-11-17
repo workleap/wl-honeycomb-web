@@ -33,7 +33,7 @@ While you can use any package manager to develop an application with Squide, it 
 
 ## Register instrumentation
 
-Then, update the application bootstrapping code to register Honeycomb instrumentation:
+Then, update the application bootstrapping code to register Honeycomb instrumentation using the [registerHoneycombInstrumentation](./reference/registerHoneycombInstrumentation.md) function:
 
 ```tsx !#6-8 index.tsx
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
@@ -69,7 +69,7 @@ With instrumentation in place, a few traces are now available 👇
 Individual fetch request performance can be monitored from end to end:
 
 :::align-image-left
-![Fetch instrumentation](../static/honeycomb-http-get.png)
+![Fetch instrumentation](./static/honeycomb-http-get.png)
 :::
 
 ### Document load
@@ -77,7 +77,7 @@ Individual fetch request performance can be monitored from end to end:
 The loading performance of the DOM can be monitored:
 
 :::align-image-left
-![Document load instrumentation](../static/honeycomb-document-load.png)
+![Document load instrumentation](./static/honeycomb-document-load.png)
 :::
 
 ### Unmanaged error
@@ -85,7 +85,7 @@ The loading performance of the DOM can be monitored:
 When an unmanaged error occurs, it's automatically recorded:
 
 :::align-image-left
-![Recorded error](../static/honeycomb-failing-http-request.png)
+![Recorded error](./static/honeycomb-failing-http-request.png)
 :::
 
 ### Real User Monitoring (RUM)
@@ -93,35 +93,61 @@ When an unmanaged error occurs, it's automatically recorded:
 The default instrumentation will automatically track the appropriate metrics to display RUM information:
 
 :::align-image-left
-![Largest Contentful Paint](../static/honeycomb-lcp.png){width=536 height=378}
+![Largest Contentful Paint](./static/honeycomb-lcp.png){width=536 height=378}
 :::
 :::align-image-left
-![Cumulative Layout Shift](../static/honeycomb-cls.png){width=536 height=378}
+![Cumulative Layout Shift](./static/honeycomb-cls.png){width=536 height=378}
 :::
 :::align-image-left
-![Interaction to Next Paint](../static/honeycomb-inp.png){width=532 height=358}
+![Interaction to Next Paint](./static/honeycomb-inp.png){width=532 height=358}
 :::
 
 ## Set custom user attributes
 
-Most application needs to set custom attributes on traces about the current user environment. To help with that, `@workleap/honeycomb` expose the [setGlobalSpanAttributes](../reference/honeycomb/setGlobalSpanAttributes.md) function.
+Most application needs to set custom attributes on traces about the current user environment. To help with that, `@workleap/honeycomb` expose the [setGlobalSpanAttribute](./reference/setGlobalSpanAttribute.md) function.
 
-Update your application bootstrapping code to include the `setGlobalSpanAttributes` function:
+Update your application bootstrapping code to include the `setGlobalSpanAttribute` function:
 
-TBD
-<br />
-TBD
+```tsx !#10 index.tsx
+import { registerHoneycombInstrumentation, setGlobalSpanAttributes } from "@workleap/honeycomb";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App.tsx";
 
-Now, every trace recorded after the session initialization will include the custom attribute `app.user_id`:
+registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+    endpoint: "https://sample-collector"
+});
+
+setGlobalSpanAttribute("app.user_id", "123");
+
+const root = createRoot(document.getElementById("root")!);
+
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+);
+```
+
+Now, every trace recorded after the execution of `setGlobalSpanAttributes` will include the custom attributes `app.user_id`:
 
 :::align-image-left
-![Custom attributes](../static/honeycomb-custom-attributes.png){width=204 height=161}
+![Custom attributes](./static/honeycomb-custom-attributes.png){width=204 height=161}
 :::
 
 ## Custrom traces
 
-Have a look at the [custom traces](#custrom-traces) page.
+Have a look at the [custom traces](./custom-traces.md) page.
 
 ## Try it :rocket:
 
-TBD
+Start the application in a development environment using the dev script. Render a page, then navigate to your Honeycomb instance. Go to the "Query" page and type `name = HTTP GET` into the "Where" input. Run the query, select the "Traces" tab at the bottom of the page and view the detail of a trace. You should view information about the request.
+
+### Troubleshoot issues
+
+If you are experiencing issues with this guide:
+
+- Set the [debug](./reference/registerHoneycombInstrumentation.md#debug) predefined option to `true`.
+- Open the [DevTools](https://developer.chrome.com/docs/devtools/) console. You'll see a log entry for every Honeycomb traces.
+    - @`honeycombio/opentelemetry-web: Honeycomb link: https://ui.honeycomb.io/...`
+- Refer to the sample on [GitHub](https://github.com/gsoft-inc/wl-honeycomb-web/tree/main/sample).

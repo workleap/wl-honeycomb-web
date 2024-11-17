@@ -7,7 +7,6 @@ The following documentation is only for the maintainers of this repository.
 - [Installation](#installation)
 - [Develop the lib](#develop-the-lib)
 - [Release the lib](#release-the-lib)
-- [Deploy the sample applications](#deploy-the-sample-applications)
 - [Available commands](#commands)
 - [CI](#ci)
 
@@ -108,20 +107,6 @@ By default, library compilation output will be in it's respective *dist* directo
 #### Linting errors
 
 If you got linting error, most of the time, they can be fixed automatically using `eslint . --fix`, if not, follow the report provided by `pnpm lint`.
-
-## Deploy the sample application
-
-The site for this sample application is hosted on [Netlify](https://www.netlify.com/):
-
-- [host](https://squide-basic-host.netlify.app/) - TBD
-
-To deploy the sample application, open a terminal at the root of the repository and execute the following script:
-
-```bash
-deploy-sample
-```
-
-A prompt with a few questions will appear and then the site will automatically be deployed to production.
 
 ## Commands
 

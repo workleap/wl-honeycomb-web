@@ -8,12 +8,10 @@
     "type": "module",
     "scripts": {
         "dev": "nodemon",
-        "build": "pnpm build:webpack && pnpm build:copy-redirects",
+        "build": "pnpm build:webpack && pnpm build:copy-public-files",
         "build:webpack": "webpack --config webpack.build.js",
-        "build:copy-redirects": "copyfiles _redirects dist",
         "build:copy-public-files": "copyfiles -u 1 public/favicon.png dist",
-        "serve-build": "pnpm http-server dist -p 8080 -P http://localhost:8080? -c-1",
-        "deploy": "netlify deploy --dir=sample/dist --site=TBD --prod"
+        "serve-build": "pnpm http-server dist -p 8080 -P http://localhost:8080? -c-1"
     },
     "devDependencies": {
         "@swc/core": "1.9.2",
@@ -30,7 +28,6 @@
         "copyfiles": "2.4.1",
         "eslint": "8.57.0",
         "http-server": "14.1.1",
-        "netlify-cli": "17.37.2",
         "nodemon": "3.1.7",
         "typescript": "5.5.4",
         "webpack": "5.96.1",

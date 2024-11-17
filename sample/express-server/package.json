@@ -7,7 +7,8 @@
     "license": "Apache-2.0",
     "type": "module",
     "scripts": {
-        "dev": "nodemon"
+        "dev": "nodemon",
+        "serve-build": "tsx src/index.ts"
     },
     "dependencies": {
         "@opentelemetry/api": "1.9.0",

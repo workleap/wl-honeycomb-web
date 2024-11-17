@@ -5,4 +5,5 @@ icon: command-palette
 
 # Sample
 
-TBD
+- :icon-mark-github: [Frontend application](https://github.com/gsoft-inc/wl-honeycomb-web/tree/main/sample/app)
+- :icon-mark-github: [Server](https://github.com/gsoft-inc/wl-honeycomb-web/tree/main/sample/express-server)
