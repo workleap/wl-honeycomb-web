@@ -2,7 +2,7 @@
     "name": "@sample/app",
     "author": "Workleap",
     "version": "0.0.0",
-    "description": "Application to showcase the shared Honeycomb configuration library.",
+    "description": "Default Honeycomb instrumentation for Workleap's web applications.",
     "private": true,
     "license": "Apache-2.0",
     "type": "module",
