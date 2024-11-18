@@ -1,6 +1,6 @@
 # wl-honeycomb-web
 
-Default[Honeycomb](https://www.honeycomb.io/) instrumentation for [Workleap](https://workleap.com/) web applications.
+Default [Honeycomb](https://www.honeycomb.io/) instrumentation for [Workleap](https://workleap.com/) web applications.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 [![CI](https://github.com/gsoft-inc/wl-honeycomb-web/actions/workflows/ci.yml/badge.svg)](https://github.com/gsoft-inc/wl-honeycomb-web/actions/workflows/ci.yml)
