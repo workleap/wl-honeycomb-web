@@ -1,11 +1,11 @@
 import { registerHoneycombInstrumentation, setGlobalSpanAttributes } from "@workleap/honeycomb";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { HoneycombApiKey } from "../../apiKeys.js";
 import { App } from "./App.tsx";
 
 registerHoneycombInstrumentation("honeycomb-lib-sample", [/http:\/\/localhost:1234\.*/], {
-    apiKey: HoneycombApiKey,
+    // Default to a space so it doesn't throw at runtime.
+    apiKey: process.env.HONEYCOMB_API_KEY ?? " ",
     debug: true
 });
 
