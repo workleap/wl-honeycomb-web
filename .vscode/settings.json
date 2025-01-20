@@ -31,7 +31,8 @@
 
     // Settings for third parties that are frequently used
     "files.associations": {
-        "*.snap": "javascriptreact"
+        "*.snap": "javascriptreact",
+        "turbo.json": "jsonc"
     },
 
     // ESLint extension

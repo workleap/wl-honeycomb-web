@@ -1,27 +1,41 @@
 {
-    "$schema": "https://turbo.build/schema.v1.json",
-    "pipeline": {
+    "$schema": "https://turbo.build/schema.json",
+    "ui": "tui",
+    "tasks": {
         "dev": {
-            "dependsOn": ["build"],
-            "outputs": ["dist/**"],
-            "persistent": true,
-            "outputMode": "new-only"
+            "cache": false,
+            "persistent": true
         },
         "build": {
             "dependsOn": ["^build"],
-            "outputs": ["dist/**"],
-            "outputMode": "new-only"
+            "outputs": ["dist/**"]
         },
         "serve-build": {
             "dependsOn": ["build"],
             "cache": false,
-            "persistent": true,
-            "outputMode": "new-only"
+            "persistent": true
         },
         "deploy": {
-            "dependsOn": ["build"],
-            "outputs": ["dist/**"],
-            "outputMode": "new-only"
+            "dependsOn": ["build"]
+        },
+        "lint": {
+            "dependsOn": ["eslint", "typecheck", "//#syncpack"]
+        },
+        "//#eslint": {
+            "outputs": ["node_modules/.cache/eslint"]
+        },
+        "eslint": {
+            "outputs": ["node_modules/.cache/eslint"]
+        },
+        "//#typecheck": {
+            "outputs": ["node_modules/.cache/tsbuildinfo.json"]
+        },
+        "typecheck": {
+            "outputs": ["node_modules/.cache/tsbuildinfo.json"]
+        },
+        "//#syncpack": {},
+        "test": {
+            "outputs": ["node_modules/.cache/jest/**"]
         }
     }
 }
