@@ -1,5 +1,5 @@
 {
-    "name": "@sample/app",
+    "name": "@proxy/app",
     "author": "Workleap",
     "version": "0.0.0",
     "description": "Default Honeycomb instrumentation for Workleap's web applications.",

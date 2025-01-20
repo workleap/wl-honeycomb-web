@@ -54,8 +54,11 @@ jobs:
       - name: Build lib
         run: pnpm build-lib
 
-      - name: Build sample
-        run: pnpm build-sample
+      - name: Build api-key sample
+        run: pnpm build-api-key
+
+      - name: Build proxy sample
+        run: pnpm build-proxy
 
       - name: Test lib
         run: pnpm test

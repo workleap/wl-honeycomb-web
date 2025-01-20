@@ -1,8 +1,8 @@
 {
-    "name": "@sample/express-server",
+    "name": "@proxy/express-proxy",
     "author": "Workleap",
     "version": "0.0.0",
-    "description": "Express server to test Honeycomb distributed tracing.",
+    "description": "Express server to proxy requests to Honeycomb.",
     "private": true,
     "license": "Apache-2.0",
     "type": "module",
