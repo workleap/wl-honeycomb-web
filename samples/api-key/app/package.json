@@ -1,5 +1,5 @@
 {
-    "name": "@sample/app",
+    "name": "@api-key/app",
     "author": "Workleap",
     "version": "0.0.0",
     "description": "Default Honeycomb instrumentation for Workleap's web applications.",
@@ -33,7 +33,7 @@
         "typescript": "5.5.4"
     },
     "dependencies": {
-        "@honeycombio/opentelemetry-web": "0.11.0",
+        "@honeycombio/opentelemetry-web": "0.10.0",
         "@opentelemetry/api": "1.9.0",
         "@opentelemetry/auto-instrumentations-web": "0.45.0",
         "@opentelemetry/instrumentation-document-load": "0.44.0",

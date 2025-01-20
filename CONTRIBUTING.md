@@ -20,15 +20,20 @@ The main difference to account for is that the `devDependencies` must now be ins
 
 ## Project overview
 
-This project is split into two major sections, [lib/](lib) and [sample/](sample).
+This project is split into two major sections, [lib/](./lib) and [samples/](./samples).
 
 ### Lib
 
-Under [lib/](lib/) is the actual library.
+Under [lib/](./lib/) is the actual library.
 
-### Sample
+### Samples
 
-Under [sample/](sample/) is the sample application to test the library.
+Under [samples/](./samples/) are applications to test the library functionalities while developing.
+
+You'll find two samples:
+
+- `api-key`: A sample application authenticating traces with an Honeycomb [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/).
+- `proxy`: A sample application using a proxy to forward traces to Honeycomb
 
 ## Installation
 
@@ -46,7 +51,7 @@ pnpm install
 
 ### Setup Honeycomb
 
-[Honeycomb](https://www.honeycomb.io/) is one of the monitoring platforms used at Workleap. The [sample](./sample) of this repository is already configured to send traces to Honeycomb but needs a valid Honeycomb API key.
+[Honeycomb](https://www.honeycomb.io/) is one of the monitoring platforms used at Workleap. The [samples](./samples) of this repository is already configured to send traces to Honeycomb but needs a valid Honeycomb API key.
 
 First, create a file named `.env.local` at the root of the workspace.
 
@@ -83,10 +88,16 @@ npx retype wallet --add <your-license-key-here>
 
 ## Develop the library
 
-Open a [VSCode terminals](https://code.visualstudio.com/docs/terminal/basics#_managing-multiple-terminals) and start the sample application with the following script:
+Open a [VSCode terminals](https://code.visualstudio.com/docs/terminal/basics#_managing-multiple-terminals) and start the sample application with either of the following scripts:
 
 ```bash
-pnpm dev-sample
+pnpm dev-api-key
+```
+
+OR
+
+```bash
+pnpm dev-proxy
 ```
 
 You can then open your favorite browser and navigate to `http://localhost:8080/` to get a live preview of your code.
@@ -123,12 +134,20 @@ By default, library compilation output will be in it's respective *dist* directo
 
 From the project root, you have access to many commands. The most important ones are:
 
-### dev-sample
+### dev-api-key
 
-Build the sample application for development and start the dev servers.
+Build the sample application authentication traces with an api-key for development and start the dev servers.
 
 ```bash
-pnpm dev-sample
+pnpm dev-api-key
+```
+
+### dev-proxy
+
+Build the sample application proxying traces for development and start the dev servers.
+
+```bash
+pnpm dev-proxy
 ```
 
 ### dev-docs
@@ -147,20 +166,20 @@ Build the library for release.
 pnpm build-lib
 ```
 
-### build-sample
+### build-api-key
 
-Build the sample application for release.
+Build the sample application authentication traces with an api-key for release.
 
 ```bash
-pnpm build-basic
+pnpm build-api-key
 ```
 
-### serve-sample
+### serve-api-key
 
-Build the sample application for deployment and start a local web server to serve the application.
+Build the sample application authentication traces with an api-key for deployment and start a local web server to serve the application.
 
 ```bash
-pnpm serve-basic
+pnpm serve-api-key
 ```
 
 ### test

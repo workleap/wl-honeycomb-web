@@ -11,15 +11,59 @@ import express, { type Request, type Response } from "express";
 import path from "node:path";
 
 dotenv.config({
-    path: [path.resolve("../../.env.local")]
+    path: [path.resolve("../../../.env.local")]
 });
 
-const sdk = new NodeSDK({
-    serviceName: "honeycomb-lib-sample",
-    traceExporter: new OTLPTraceExporter({
-        url: "https://api.honeycomb.io/v1/traces",
+const HoneycombUrl = "https://api.honeycomb.io/v1/traces";
+const HoneycombApiKey = process.env.HONEYCOMB_API_KEY ?? "";
+
+const app = express();
+const port = 1234;
+
+app.use(express.json());
+app.use(cors());
+
+app.listen(port, () => {
+    console.log(`[server]: Server is running at http://localhost:${port}`);
+});
+
+// *** Honeycomb Proxy
+
+app.post("/v1/traces", async (req: Request, res: Response) => {
+    const payload = await req.body;
+
+    const options = {
+        method: "POST",
         headers: {
-            "x-honeycomb-team": process.env.HONEYCOMB_API_KEY ?? ""
+            "Content-Type": "application/json",
+            "x-honeycomb-team": HoneycombApiKey
+        },
+        body: JSON.stringify(payload)
+    };
+
+    try {
+        const honeycombResponse = await fetch(HoneycombUrl, options);
+
+        res.json({
+            success: true,
+            response: honeycombResponse
+        });
+    } catch (error: unknown) {
+        res.status(500).json({
+            success: false,
+            message: error instanceof Error ? error.message : JSON.stringify(error)
+        });
+    }
+});
+
+// *** Application endpoints
+
+const sdk = new NodeSDK({
+    serviceName: "honeycomb-proxy-sample",
+    traceExporter: new OTLPTraceExporter({
+        url: HoneycombUrl,
+        headers: {
+            "x-honeycomb-team": HoneycombApiKey
         }
     }),
     instrumentations: [
@@ -34,12 +78,7 @@ const sdk = new NodeSDK({
 
 sdk.start();
 
-const tracer = trace.getTracer("express-server");
-
-const app = express();
-const port = 1234;
-
-app.use(cors());
+const tracer = trace.getTracer("express-proxy");
 
 app.get("/api/movies", (req: Request, res: Response) => {
     tracer.startActiveSpan("api/movies", span => {
@@ -84,8 +123,4 @@ app.get("/api/failing", (req: Request, res: Response) => {
 
         span.end();
     });
-});
-
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
 });
