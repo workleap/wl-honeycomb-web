@@ -1,10 +1,10 @@
 node_modules
 dist
-.env.local
 .pnpm-debug.log*
 .netlify
 .turbo
 .retype
+*.env.local
 
 # Mac
 .DS_Store
