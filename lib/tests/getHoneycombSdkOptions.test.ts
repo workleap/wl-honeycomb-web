@@ -76,6 +76,22 @@ function removeInstrumentationVersionsForSnapshot(options: any) {
     return options;
 }
 
+test("do not throw when an api key is provided", () => {
+    expect(() => getHoneycombSdkOptions("foo", ["/foo"], {
+        apiKey: "123"
+    })).not.toThrow();
+});
+
+test("do not throw when an endpoint is provided", () => {
+    expect(() => getHoneycombSdkOptions("foo", ["/foo"], {
+        endpoint: "https://www.google.com"
+    })).not.toThrow();
+});
+
+test("throw when both the api key and endpoint options are not provided", () => {
+    expect(() => getHoneycombSdkOptions("foo", ["/foo"])).toThrow();
+});
+
 test("when debug is true", () => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         debug: true,
