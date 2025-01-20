@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 1.0.1
+
+### Patch Changes
+
+- [#7](https://github.com/gsoft-inc/wl-honeycomb-web/pull/7) [`d2c7deb`](https://github.com/gsoft-inc/wl-honeycomb-web/commit/d2c7deb257b1cdb0cf43d8d791f87b5817024dbc) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Added source code and source maps to the package.
+
 ## 1.0.0
 
 ### Major Changes
