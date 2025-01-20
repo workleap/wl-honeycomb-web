@@ -174,12 +174,28 @@ Build the sample application authentication traces with an api-key for release.
 pnpm build-api-key
 ```
 
+### build-proxy
+
+Build the sample application proxying traces for release.
+
+```bash
+pnpm build-proxy
+```
+
 ### serve-api-key
 
 Build the sample application authentication traces with an api-key for deployment and start a local web server to serve the application.
 
 ```bash
 pnpm serve-api-key
+```
+
+### serve-proxy
+
+Build the sample application proxying traces and start a local web server to serve the application.
+
+```bash
+pnpm serve-proxy
 ```
 
 ### test
