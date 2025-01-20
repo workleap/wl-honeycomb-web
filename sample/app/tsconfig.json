@@ -1,9 +1,8 @@
 {
     "extends": "@workleap/typescript-configs/web-application.json",
     "compilerOptions": {
-        "paths": {
-            "@workleap/honeycomb": ["../../lib/src/index.ts"]
-        }
+        "incremental": true,
+        "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
     },
     "exclude": ["dist", "node_modules"]
 }

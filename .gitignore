@@ -1,5 +1,6 @@
 node_modules
 dist
+sample/.env.local
 .pnpm-debug.log*
 .netlify
 .turbo

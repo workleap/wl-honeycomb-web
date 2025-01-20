@@ -20,7 +20,7 @@ The main difference to account for is that the `devDependencies` must now be ins
 
 ## Project overview
 
-This project is split into two major sections, [packages/](packages/) and [samples/](samples/).
+This project is split into two major sections, [lib/](lib) and [sample/](sample).
 
 ### Lib
 
@@ -44,6 +44,29 @@ To install the library project, open a terminal at the root of the workspace and
 pnpm install
 ```
 
+### Setup Honeycomb
+
+[Honeycomb](https://www.honeycomb.io/) is one of the monitoring platforms used at Workleap. The [sample](./sample) of this repository is already configured to send traces to Honeycomb but needs a valid Honeycomb API key.
+
+First, create a file named `.env.local` at the root of the workspace.
+
+``` !#3
+workspace
+├── package.json
+├── .env.local
+```
+
+Then, retrieve a valid [Honeycomb API Key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/) from your Vault (or ask IT a key for Honeycomb's "frontend-platform-team-dev" environment).
+
+Finally, open the newly created `.env.local` file add a value named `HONEYCOMB_API_KEY`.
+
+```bash .env.local
+HONEYCOMB_API_KEY="YOUR_API_KEY";
+```
+
+> [!NOTE]
+> The `.env.local` file is configured to be ignored by Git and will not be pushed to the remote repository.
+
 ### Setup Retype
 
 [Retype](https://retype.com/) is the documentation platform that Squide is using for its documentation. As this project is leveraging a few [Pro features](https://retype.com/pro/) of Retype.
@@ -60,15 +83,7 @@ npx retype wallet --add <your-license-key-here>
 
 ## Develop the library
 
-We recommend opening two [VSCode terminals](https://code.visualstudio.com/docs/terminal/basics#_managing-multiple-terminals) to develop the library.
-
-With the first terminal, execute the following script:
-
-```bash
-pnpm dev
-```
-
-With the second terminal, start the sample application with the following script:
+Open a [VSCode terminals](https://code.visualstudio.com/docs/terminal/basics#_managing-multiple-terminals) and start the sample application with the following script:
 
 ```bash
 pnpm dev-sample
@@ -99,26 +114,14 @@ Make sure GitHub Action has **write access** to the selected npm packages.
 If the library failed to compile, it's easier to debug without executing the full release flow every time. To do so, instead, execute the following command:
 
 ```bash
-pnpm build
+pnpm build-lib
 ```
 
 By default, library compilation output will be in it's respective *dist* directory.
 
-#### Linting errors
-
-If you got linting error, most of the time, they can be fixed automatically using `eslint . --fix`, if not, follow the report provided by `pnpm lint`.
-
 ## Commands
 
 From the project root, you have access to many commands. The most important ones are:
-
-### dev
-
-Build the shell packages for development and start the watch processes.
-
-```bash
-pnpm dev
-```
 
 ### dev-sample
 
@@ -136,12 +139,12 @@ Build the [Retype](https://retype.com/) documentation for development and start 
 pnpm dev-docs
 ```
 
-### build
+### build-lib
 
 Build the library for release.
 
 ```bash
-pnpm build
+pnpm build-lib
 ```
 
 ### build-sample
