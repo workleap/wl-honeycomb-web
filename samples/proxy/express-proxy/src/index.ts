@@ -1,6 +1,6 @@
 import cors from "cors";
 import * as dotenv from "dotenv";
-import express, { type Request, type Response } from "express";
+import express, { json, type Request, type Response } from "express";
 import path from "node:path";
 
 dotenv.config({
@@ -10,8 +10,13 @@ dotenv.config({
 const app = express();
 const port = 5678;
 
-app.use(express.json());
-app.use(cors());
+app.use(json());
+
+app.use(cors({
+    origin: ["http://localhost:8080"],
+    methods: ["POST"],
+    credentials: true
+}));
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

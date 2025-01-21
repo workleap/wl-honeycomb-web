@@ -8,6 +8,7 @@ import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
 import { globalAttributeSpanProcessor } from "./globalAttributes.ts";
 import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeycombTypes.ts";
+import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
 
 export type DefineFetchInstrumentationOptionsFunction = (defaultOptions: FetchInstrumentationConfig) => FetchInstrumentationConfig;
 export type DefineXmlHttpRequestInstrumentationOptionsFunction = (defaultOptions: XMLHttpRequestInstrumentationConfig) => XMLHttpRequestInstrumentationConfig;
@@ -23,7 +24,7 @@ const defaultDefineDocumentLoadInstrumentationOptions: DefineDocumentLoadInstrum
 };
 
 export interface RegisterHoneycombInstrumentationOptions {
-    endpoint?: HoneycombSdkOptions["endpoint"];
+    proxy?: string;
     apiKey?: HoneycombSdkOptions["apiKey"];
     debug?: HoneycombSdkOptions["debug"];
     instrumentations?: HoneycombSdkInstrumentations;
@@ -38,7 +39,7 @@ export interface RegisterHoneycombInstrumentationOptions {
 // Must specify the return type, otherwise we get a TS4058: Return type of exported function has or is using name X from external module "XYZ" but cannot be named.
 export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}): HoneycombSdkOptions {
     const {
-        endpoint,
+        proxy,
         apiKey,
         debug,
         instrumentations = [],
@@ -50,8 +51,8 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
         transformers = []
     } = options;
 
-    if (!endpoint && !apiKey) {
-        throw new Error("[honeycomb] Instrumentation must be initialized with either an \"endpoint\" or \"apiKey\" option.");
+    if (!proxy && !apiKey) {
+        throw new Error("[honeycomb] Instrumentation must be initialized with either a \"proxy\" or \"apiKey\" option.");
     }
 
     const instrumentationOptions = {
@@ -94,7 +95,7 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     }
 
     const sdkOptions = {
-        endpoint: endpoint,
+        endpoint: proxy,
         apiKey,
         debug,
         localVisualizations: debug,
@@ -114,8 +115,12 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
 }
 
 export function registerHoneycombInstrumentation(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options?: RegisterHoneycombInstrumentationOptions) {
-    const sdkOptions = getHoneycombSdkOptions(serviceName, apiServiceUrls, options);
+    if (options?.proxy) {
+        patchXmlHttpRequest(options?.proxy);
+    }
 
+    const sdkOptions = getHoneycombSdkOptions(serviceName, apiServiceUrls, options);
     const instance = new HoneycombWebSDK(sdkOptions);
+
     instance.start();
 }
