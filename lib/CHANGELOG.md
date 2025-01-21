@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 2.0.0
+
+### Major Changes
+
+- [#13](https://github.com/gsoft-inc/wl-honeycomb-web/pull/13) [`23c0db1`](https://github.com/gsoft-inc/wl-honeycomb-web/commit/23c0db1a51b1cc16eb3463d7a01a33db1f285ce2) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Rename the `endpoint` option for `proxy`.
+
 ## 1.0.1
 
 ### Patch Changes
