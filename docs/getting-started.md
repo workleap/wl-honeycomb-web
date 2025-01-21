@@ -42,7 +42,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
 registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
-    endpoint: "https://sample-collector"
+    proxy: "https://sample-proxy"
 });
 
 const root = createRoot(document.getElementById("root")!);
@@ -59,7 +59,7 @@ Avoid using `/.+/g,` in production, as it could expose customer data to third pa
 !!!
 
 !!!warning
-We recommend using an [OpenTelemetry collector](https://docs.honeycomb.io/send-data/opentelemetry/collector/) over an ingestion [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/#create-api-key), as API keys can expose Workleap to potential attacks.
+We recommend using an [OpenTelemetry collector](https://docs.honeycomb.io/send-data/opentelemetry/collector/) with an authenticated proxy over an ingestion [API key](https://docs.honeycomb.io/get-started/configure/environments/manage-api-keys/#create-api-key), as API keys can expose Workleap to potential attacks.
 !!!
 
 With instrumentation in place, a few traces are now available 👇
@@ -115,7 +115,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
 registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
-    endpoint: "https://sample-collector"
+    proxy: "https://sample-proxy"
 });
 
 setGlobalSpanAttribute("app.user_id", "123");

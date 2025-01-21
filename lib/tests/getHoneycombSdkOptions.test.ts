@@ -82,13 +82,13 @@ test("do not throw when an api key is provided", () => {
     })).not.toThrow();
 });
 
-test("do not throw when an endpoint is provided", () => {
+test("do not throw when a proxy is provided", () => {
     expect(() => getHoneycombSdkOptions("foo", ["/foo"], {
-        endpoint: "https://www.google.com"
+        proxy: "https://my-proxy.com"
     })).not.toThrow();
 });
 
-test("throw when both the api key and endpoint options are not provided", () => {
+test("throw when both the api key and proxy options are not provided", () => {
     expect(() => getHoneycombSdkOptions("foo", ["/foo"])).toThrow();
 });
 
