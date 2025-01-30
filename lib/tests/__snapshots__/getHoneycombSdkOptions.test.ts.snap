@@ -864,6 +864,9 @@ exports[`when xml http instrumentation is a custom function 1`] = `
       "_config": {
         "enabled": true,
         "ignoreNetworkEvents": false,
+        "propagateTraceHeaderCorsUrls": [
+          "/foo",
+        ],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-xml-http-request",
