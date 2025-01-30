@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 2.0.1
+
+### Patch Changes
+
+- [#15](https://github.com/gsoft-inc/wl-honeycomb-web/pull/15) [`bd6ef55`](https://github.com/gsoft-inc/wl-honeycomb-web/commit/bd6ef555cb2f117e02a7f86704ee2fd7d0af6be0) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Default options are now applied to the XML HTTP Request instrumentation as well.
+
 ## 2.0.0
 
 ### Major Changes
