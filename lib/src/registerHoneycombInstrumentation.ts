@@ -71,7 +71,7 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     }
 
     if (xmlHttpRequestInstrumentation) {
-        autoInstrumentations["@opentelemetry/instrumentation-xml-http-request"] = xmlHttpRequestInstrumentation({});
+        autoInstrumentations["@opentelemetry/instrumentation-xml-http-request"] = xmlHttpRequestInstrumentation(instrumentationOptions);
     } else {
         autoInstrumentations["@opentelemetry/instrumentation-xml-http-request"] = {
             enabled: false
