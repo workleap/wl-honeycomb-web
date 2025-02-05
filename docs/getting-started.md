@@ -149,5 +149,5 @@ If you are experiencing issues with this guide:
 
 - Set the [debug](./reference/registerHoneycombInstrumentation.md#debug) predefined option to `true`.
 - Open the [DevTools](https://developer.chrome.com/docs/devtools/) console. You'll see a log entry for every Honeycomb traces.
-    - @`honeycombio/opentelemetry-web: Honeycomb link: https://ui.honeycomb.io/...`
+    - `honeycombio/opentelemetry-web: Honeycomb link: https://ui.honeycomb.io/...`
 - Refer to the sample on [GitHub](https://github.com/gsoft-inc/wl-honeycomb-web/tree/main/sample).
