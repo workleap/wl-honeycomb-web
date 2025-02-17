@@ -2,7 +2,7 @@
 
 ## Usage
 
-View the [user's documentation](https://gsoft-inc.github.io/wl-honeycomb-web/).
+View the [user's documentation](https://workleap.github.io/wl-honeycomb-web/).
 
 ## 🤝 Contributing
 
