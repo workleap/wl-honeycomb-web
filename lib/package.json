@@ -6,7 +6,7 @@
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/gsoft-inc/wl-honeycomb-web.git",
+        "url": "git+https://github.com/workleap/wl-honeycomb-web.git",
         "directory": "lib"
     },
     "type": "module",
