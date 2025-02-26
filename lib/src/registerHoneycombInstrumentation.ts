@@ -8,7 +8,7 @@ import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
 import { globalAttributeSpanProcessor } from "./globalAttributes.ts";
 import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeycombTypes.ts";
-import { patchFetchInstrumentationConfig, patchXMLHttpInstrumentationConfig } from "./httpAttributeKeyRemap.js";
+import { patchFetchInstrumentationConfig, patchXMLHttpInstrumentationConfig } from "./httpAttributeKeyRemap.ts";
 import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
 
 export type DefineFetchInstrumentationOptionsFunction = (defaultOptions: FetchInstrumentationConfig) => FetchInstrumentationConfig;
