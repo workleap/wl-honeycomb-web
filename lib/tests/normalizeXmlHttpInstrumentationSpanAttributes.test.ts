@@ -1,5 +1,5 @@
 import type { Span, SpanAttributeValue, SpanContext } from "@opentelemetry/api";
-import { _normalXmlHttpInstrumentationSpanAttributes, normalXmlHttpInstrumentationSpanAttributes } from "../src/normalizeSpanAttributes.ts";
+import { _normalizeXmlHttpInstrumentationSpanAttributes, normalizeXmlHttpInstrumentationSpanAttributes } from "../src/normalizeSpanAttributes.ts";
 
 class DummySpan implements Span {
     attributes: { key: string; value: unknown }[] = [];
@@ -121,7 +121,7 @@ function createXmlHttpRequest(options: { status?: number } = {}) {
 test("when no consumer applyCustomAttributesOnSpan hook is provided, call the normalize function", () => {
     const normalizeXmlHttpSpanAttributesMock = jest.fn();
 
-    const config = _normalXmlHttpInstrumentationSpanAttributes({}, normalizeXmlHttpSpanAttributesMock);
+    const config = _normalizeXmlHttpInstrumentationSpanAttributes({}, normalizeXmlHttpSpanAttributesMock);
 
     const span = new DummySpan();
     const request = createXmlHttpRequest();
@@ -135,7 +135,7 @@ test("when a consumer applyCustomAttributesOnSpan hook is provided, call both th
     const applyCustomAttributesOnSpanMock = jest.fn();
     const normalizeXmlHttpSpanAttributesMock = jest.fn();
 
-    const config = _normalXmlHttpInstrumentationSpanAttributes({
+    const config = _normalizeXmlHttpInstrumentationSpanAttributes({
         applyCustomAttributesOnSpan: applyCustomAttributesOnSpanMock
     }, normalizeXmlHttpSpanAttributesMock);
 
@@ -149,7 +149,7 @@ test("when a consumer applyCustomAttributesOnSpan hook is provided, call both th
 });
 
 test("add all attributes to the span", () => {
-    const config = normalXmlHttpInstrumentationSpanAttributes({});
+    const config = normalizeXmlHttpInstrumentationSpanAttributes({});
 
     const span = new DummySpan();
     const request = createXmlHttpRequest({ status: 200 });

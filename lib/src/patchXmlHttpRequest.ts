@@ -11,11 +11,7 @@ import { isString } from "./assertions.ts";
 export function patchXmlHttpRequest(proxy: string) {
     const originalOpen = XMLHttpRequest.prototype.open;
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    XMLHttpRequest.prototype.open = function(...args) {
-        const url = args[1];
-
+    XMLHttpRequest.prototype.open = function(method: string, url: string | URL) {
         if (url && proxy) {
             const stringifyUrl = isString(url) ? url : url.toString();
 
@@ -23,9 +19,8 @@ export function patchXmlHttpRequest(proxy: string) {
                 this.withCredentials = true;
             }
         }
-
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        originalOpen.apply(this, args);
+        this._method = method;
+        // eslint-disable-next-line prefer-rest-params
+        originalOpen.apply(this, arguments);
     };
 }

@@ -1,7 +1,7 @@
 import type { FetchCustomAttributeFunction, FetchInstrumentationConfig } from "@opentelemetry/instrumentation-fetch";
 import type { XHRCustomAttributeFunction, XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
 
-export function _normalXmlHttpInstrumentationSpanAttributes(config: XMLHttpRequestInstrumentationConfig, normalizeFunction: XHRCustomAttributeFunction) {
+export function _normalizeXmlHttpInstrumentationSpanAttributes(config: XMLHttpRequestInstrumentationConfig, normalizeFunction: XHRCustomAttributeFunction) {
     if (config.applyCustomAttributesOnSpan) {
         const baseFunction = config.applyCustomAttributesOnSpan;
 
@@ -16,9 +16,9 @@ export function _normalXmlHttpInstrumentationSpanAttributes(config: XMLHttpReque
     return config;
 }
 
-export function normalXmlHttpInstrumentationSpanAttributes(config: XMLHttpRequestInstrumentationConfig) {
-    return _normalXmlHttpInstrumentationSpanAttributes(config, (span, xhr) => {
-        span.setAttribute("http.request.method", xhr.responseURL);
+export function normalizeXmlHttpInstrumentationSpanAttributes(config: XMLHttpRequestInstrumentationConfig) {
+    return _normalizeXmlHttpInstrumentationSpanAttributes(config, (span, xhr) => {
+        span.setAttribute("http.request.method", xhr["_method"]);
         span.setAttribute("http.response.status_code", xhr.status);
         span.setAttribute("url.full", xhr.responseURL);
     });
