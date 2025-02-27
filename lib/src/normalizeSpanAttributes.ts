@@ -1,6 +1,6 @@
 import type { FetchCustomAttributeFunction, FetchInstrumentationConfig } from "@opentelemetry/instrumentation-fetch";
 import type { XHRCustomAttributeFunction, XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
-import { XMLHttpVerbProperty } from "./patchXmlHttpRequest.ts";
+import { XmlHttpVerbProperty } from "./patchXmlHttpRequest.ts";
 
 export function _normalizeXmlHttpInstrumentationSpanAttributes(config: XMLHttpRequestInstrumentationConfig, normalizeFunction: XHRCustomAttributeFunction) {
     if (config.applyCustomAttributesOnSpan) {
@@ -21,7 +21,7 @@ export function normalizeXmlHttpInstrumentationSpanAttributes(config: XMLHttpReq
     return _normalizeXmlHttpInstrumentationSpanAttributes(config, (span, xhr) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        span.setAttribute("http.request.method", xhr[XMLHttpVerbProperty]);
+        span.setAttribute("http.request.method", xhr[XmlHttpVerbProperty]);
         span.setAttribute("http.response.status_code", xhr.status);
         span.setAttribute("url.full", xhr.responseURL);
     });

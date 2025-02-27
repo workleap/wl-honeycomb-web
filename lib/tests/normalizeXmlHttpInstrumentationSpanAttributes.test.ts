@@ -1,6 +1,6 @@
-import type { Span, SpanAttributeValue, SpanContext } from "@opentelemetry/api";
+import type { AttributeValue, Span, SpanContext } from "@opentelemetry/api";
 import { _normalizeXmlHttpInstrumentationSpanAttributes, normalizeXmlHttpInstrumentationSpanAttributes } from "../src/normalizeSpanAttributes.ts";
-import { XMLHttpVerbProperty } from "../src/patchXmlHttpRequest.ts";
+import { XmlHttpVerbProperty } from "../src/patchXmlHttpRequest.ts";
 
 class DummySpan implements Span {
     attributes: { key: string; value: unknown }[] = [];
@@ -9,7 +9,7 @@ class DummySpan implements Span {
         throw new Error("Method not implemented.");
     }
 
-    setAttribute(key: string, value: SpanAttributeValue): this {
+    setAttribute(key: string, value: AttributeValue): this {
         this.attributes.push({ key, value });
 
         return this;
@@ -120,7 +120,7 @@ function createXmlHttpRequest(options: { verb?: string; status?: number; respons
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    request[XMLHttpVerbProperty] = verb;
+    request[XmlHttpVerbProperty] = verb;
 
     return request;
 }
@@ -157,13 +157,13 @@ test("when a consumer applyCustomAttributesOnSpan hook is provided, call both th
 
 test("add all attributes to the span", () => {
     const config = normalizeXmlHttpInstrumentationSpanAttributes({});
-
+    const responseURL = "http://example.com";
     const span = new DummySpan();
-    const request = createXmlHttpRequest({ verb: "GET", status: 200, responseURL: "http://example.com" });
+    const request = createXmlHttpRequest({ verb: "GET", status: 200, responseURL });
 
     config.applyCustomAttributesOnSpan!(span, request);
 
     expect(span.attributes.some(x => x.key === "http.request.method" && x.value === "GET")).toBeTruthy();
     expect(span.attributes.some(x => x.key === "http.response.status_code" && x.value === 200)).toBeTruthy();
-    expect(span.attributes.some(x => x.key === "url.full")).toBeTruthy();
+    expect(span.attributes.some(x => x.key === "url.full" && x.value === responseURL)).toBeTruthy();
 });
