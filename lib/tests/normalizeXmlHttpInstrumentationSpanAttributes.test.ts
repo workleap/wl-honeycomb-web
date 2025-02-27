@@ -1,5 +1,6 @@
 import type { Span, SpanAttributeValue, SpanContext } from "@opentelemetry/api";
 import { _normalizeXmlHttpInstrumentationSpanAttributes, normalizeXmlHttpInstrumentationSpanAttributes } from "../src/normalizeSpanAttributes.ts";
+import { XMLHttpVerbProperty } from "../src/patchXmlHttpRequest.ts";
 
 class DummySpan implements Span {
     attributes: { key: string; value: unknown }[] = [];
@@ -51,9 +52,11 @@ class DummySpan implements Span {
     }
 }
 
-function createXmlHttpRequest(options: { status?: number } = {}) {
+function createXmlHttpRequest(options: { verb?: string; status?: number; responseURL?: string } = {}) {
     const {
-        status = 0
+        status = 0,
+        responseURL = "",
+        verb = "GET"
     } = options;
 
     const request: XMLHttpRequest = {
@@ -62,7 +65,7 @@ function createXmlHttpRequest(options: { status?: number } = {}) {
         response: undefined,
         responseText: "",
         responseType: "",
-        responseURL: "",
+        responseURL,
         responseXML: null,
         status,
         statusText: "",
@@ -115,6 +118,10 @@ function createXmlHttpRequest(options: { status?: number } = {}) {
         }
     };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    request[XMLHttpVerbProperty] = verb;
+
     return request;
 }
 
@@ -152,11 +159,11 @@ test("add all attributes to the span", () => {
     const config = normalizeXmlHttpInstrumentationSpanAttributes({});
 
     const span = new DummySpan();
-    const request = createXmlHttpRequest({ status: 200 });
+    const request = createXmlHttpRequest({ verb: "GET", status: 200, responseURL: "http://example.com" });
 
     config.applyCustomAttributesOnSpan!(span, request);
 
-    // expect(span.attributes.some(x => x.key === "http.request.method" && x.value === "GET")).toBeTruthy();
+    expect(span.attributes.some(x => x.key === "http.request.method" && x.value === "GET")).toBeTruthy();
     expect(span.attributes.some(x => x.key === "http.response.status_code" && x.value === 200)).toBeTruthy();
     expect(span.attributes.some(x => x.key === "url.full")).toBeTruthy();
 });
