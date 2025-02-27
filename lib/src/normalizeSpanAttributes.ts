@@ -18,7 +18,9 @@ export function _normalizeXmlHttpInstrumentationSpanAttributes(config: XMLHttpRe
 
 export function normalizeXmlHttpInstrumentationSpanAttributes(config: XMLHttpRequestInstrumentationConfig) {
     return _normalizeXmlHttpInstrumentationSpanAttributes(config, (span, xhr) => {
-        span.setAttribute("http.request.method", xhr["_method"]);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        span.setAttribute("http.request.method", xhr["_verb"]);
         span.setAttribute("http.response.status_code", xhr.status);
         span.setAttribute("url.full", xhr.responseURL);
     });

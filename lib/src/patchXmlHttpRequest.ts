@@ -11,7 +11,12 @@ import { isString } from "./assertions.ts";
 export function patchXmlHttpRequest(proxy: string) {
     const originalOpen = XMLHttpRequest.prototype.open;
 
-    XMLHttpRequest.prototype.open = function(method: string, url: string | URL) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    XMLHttpRequest.prototype.open = function(...args) {
+        const verb = args[0];
+        const url = args[1];
+
         if (url && proxy) {
             const stringifyUrl = isString(url) ? url : url.toString();
 
@@ -19,8 +24,13 @@ export function patchXmlHttpRequest(proxy: string) {
                 this.withCredentials = true;
             }
         }
-        this._method = method;
-        // eslint-disable-next-line prefer-rest-params
-        originalOpen.apply(this, arguments);
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this["_verb"] = verb;
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        originalOpen.apply(this, args);
     };
 }
