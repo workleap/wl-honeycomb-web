@@ -1,5 +1,6 @@
 import { isString } from "./assertions.ts";
 
+export const XmlHttpVerbProperty = "__wl_verb__";
 // Patching: https://github.com/open-telemetry/opentelemetry-js/blob/main/experimental/packages/otlp-exporter-base/src/transport/xhr-transport.ts
 //
 // Explanations:
@@ -14,6 +15,7 @@ export function patchXmlHttpRequest(proxy: string) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     XMLHttpRequest.prototype.open = function(...args) {
+        const verb = args[0];
         const url = args[1];
 
         if (url && proxy) {
@@ -23,6 +25,10 @@ export function patchXmlHttpRequest(proxy: string) {
                 this.withCredentials = true;
             }
         }
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this[XmlHttpVerbProperty] = verb;
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

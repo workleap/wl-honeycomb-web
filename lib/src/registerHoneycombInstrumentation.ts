@@ -8,6 +8,7 @@ import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
 import { globalAttributeSpanProcessor } from "./globalAttributes.ts";
 import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeycombTypes.ts";
+import { normalizeFetchInstrumentationSpanAttributes, normalizeXmlHttpInstrumentationSpanAttributes } from "./normalizeSpanAttributes.ts";
 import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
 
 export type DefineFetchInstrumentationOptionsFunction = (defaultOptions: FetchInstrumentationConfig) => FetchInstrumentationConfig;
@@ -63,7 +64,7 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     const autoInstrumentations: InstrumentationConfigMap = {};
 
     if (fetchInstrumentation) {
-        autoInstrumentations["@opentelemetry/instrumentation-fetch"] = fetchInstrumentation(instrumentationOptions);
+        autoInstrumentations["@opentelemetry/instrumentation-fetch"] = normalizeFetchInstrumentationSpanAttributes(fetchInstrumentation(instrumentationOptions));
     } else {
         autoInstrumentations["@opentelemetry/instrumentation-fetch"] = {
             enabled: false
@@ -71,7 +72,7 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     }
 
     if (xmlHttpRequestInstrumentation) {
-        autoInstrumentations["@opentelemetry/instrumentation-xml-http-request"] = xmlHttpRequestInstrumentation(instrumentationOptions);
+        autoInstrumentations["@opentelemetry/instrumentation-xml-http-request"] = normalizeXmlHttpInstrumentationSpanAttributes(xmlHttpRequestInstrumentation(instrumentationOptions));
     } else {
         autoInstrumentations["@opentelemetry/instrumentation-xml-http-request"] = {
             enabled: false
