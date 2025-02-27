@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 2.1.0
+
+### Minor Changes
+
+- [#20](https://github.com/workleap/wl-honeycomb-web/pull/20) [`1d79f83`](https://github.com/workleap/wl-honeycomb-web/commit/1d79f834fe2398eaadd2bbf3d7abfb8aa21f3564) Thanks [@JGpGH](https://github.com/JGpGH)! - adding latest http attributes according to latest semantics
+
 ## 2.0.2
 
 ### Patch Changes
