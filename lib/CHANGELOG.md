@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 2.1.1
+
+### Patch Changes
+
+- [#23](https://github.com/workleap/wl-honeycomb-web/pull/23) [`1a67049`](https://github.com/workleap/wl-honeycomb-web/commit/1a67049c86c623795a1fd502e64e348bbfb4fd36) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Added JSDoc comments linking to the document website.
+
 ## 2.1.0
 
 ### Minor Changes
