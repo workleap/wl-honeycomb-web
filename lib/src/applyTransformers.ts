@@ -1,9 +1,15 @@
 import type { HoneycombSdkOptions } from "./honeycombTypes.ts";
 
+/**
+ * @see https://workleap.github.io/wl-honeycomb-web
+ */
 export interface HoneycombSdkOptionsTransformerContext {
     debug: boolean;
 }
 
+/**
+ * @see https://workleap.github.io/wl-honeycomb-web
+ */
 export type HoneycombSdkOptionsTransformer = (options: HoneycombSdkOptions, context: HoneycombSdkOptionsTransformerContext) => HoneycombSdkOptions;
 
 // Must specify the return type, otherwise we get a TS4058: Return type of exported function has or is using name X from external module "XYZ" but cannot be named.

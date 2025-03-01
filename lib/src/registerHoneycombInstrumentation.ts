@@ -11,9 +11,24 @@ import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeyc
 import { normalizeFetchInstrumentationSpanAttributes, normalizeXmlHttpInstrumentationSpanAttributes } from "./normalizeSpanAttributes.ts";
 import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
 
+/**
+ * @see https://workleap.github.io/wl-honeycomb-web
+ */
 export type DefineFetchInstrumentationOptionsFunction = (defaultOptions: FetchInstrumentationConfig) => FetchInstrumentationConfig;
+
+/**
+ * @see https://workleap.github.io/wl-honeycomb-web
+ */
 export type DefineXmlHttpRequestInstrumentationOptionsFunction = (defaultOptions: XMLHttpRequestInstrumentationConfig) => XMLHttpRequestInstrumentationConfig;
+
+/**
+ * @see https://workleap.github.io/wl-honeycomb-web
+ */
 export type DefineDocumentLoadInstrumentationOptionsFunction = (defaultOptions: DocumentLoadInstrumentationConfig) => DocumentLoadInstrumentationConfig;
+
+/**
+ * @see https://workleap.github.io/wl-honeycomb-web
+ */
 export type DefineUserInteractionInstrumentationOptionsFunction = (defaultOptions: UserInteractionInstrumentationConfig) => UserInteractionInstrumentationConfig;
 
 const defaultDefineFetchInstrumentationOptions: DefineFetchInstrumentationOptionsFunction = defaultOptions => {
@@ -24,6 +39,9 @@ const defaultDefineDocumentLoadInstrumentationOptions: DefineDocumentLoadInstrum
     return defaultOptions;
 };
 
+/**
+ * @see https://workleap.github.io/wl-honeycomb-web
+ */
 export interface RegisterHoneycombInstrumentationOptions {
     proxy?: string;
     apiKey?: HoneycombSdkOptions["apiKey"];
@@ -115,6 +133,9 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     });
 }
 
+/**
+ * @see https://workleap.github.io/wl-honeycomb-web
+ */
 export function registerHoneycombInstrumentation(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options?: RegisterHoneycombInstrumentationOptions) {
     if (options?.proxy) {
         patchXmlHttpRequest(options?.proxy);
