@@ -1,4 +1,5 @@
 import type { Span, SpanAttributeValue, SpanContext } from "@opentelemetry/api";
+import { test, vi } from "vitest";
 import { _normalizeFetchInstrumentationSpanAttributes, normalizeFetchInstrumentationSpanAttributes } from "../src/normalizeSpanAttributes.ts";
 
 class DummySpan implements Span {
@@ -51,8 +52,8 @@ class DummySpan implements Span {
     }
 }
 
-test("when no consumer applyCustomAttributesOnSpan hook is provided, call the normalize function", () => {
-    const normalizeFetchSpanAttributesMock = jest.fn();
+test.concurrent("when no consumer applyCustomAttributesOnSpan hook is provided, call the normalize function", ({ expect }) => {
+    const normalizeFetchSpanAttributesMock = vi.fn();
 
     const config = _normalizeFetchInstrumentationSpanAttributes({}, normalizeFetchSpanAttributesMock);
 
@@ -65,9 +66,9 @@ test("when no consumer applyCustomAttributesOnSpan hook is provided, call the no
     expect(normalizeFetchSpanAttributesMock).toHaveBeenCalledTimes(1);
 });
 
-test("when a consumer applyCustomAttributesOnSpan hook is provided, call both the consumer hook and the normalize function", () => {
-    const applyCustomAttributesOnSpanMock = jest.fn();
-    const normalizeFetchSpanAttributesMock = jest.fn();
+test.concurrent("when a consumer applyCustomAttributesOnSpan hook is provided, call both the consumer hook and the normalize function", ({ expect }) => {
+    const applyCustomAttributesOnSpanMock = vi.fn();
+    const normalizeFetchSpanAttributesMock = vi.fn();
 
     const config = _normalizeFetchInstrumentationSpanAttributes({
         applyCustomAttributesOnSpan: applyCustomAttributesOnSpanMock
@@ -83,7 +84,7 @@ test("when a consumer applyCustomAttributesOnSpan hook is provided, call both th
     expect(normalizeFetchSpanAttributesMock).toHaveBeenCalledTimes(1);
 });
 
-test("add all attributes to the span", () => {
+test.concurrent("add all attributes to the span", ({ expect }) => {
     const config = normalizeFetchInstrumentationSpanAttributes({});
 
     const span = new DummySpan();

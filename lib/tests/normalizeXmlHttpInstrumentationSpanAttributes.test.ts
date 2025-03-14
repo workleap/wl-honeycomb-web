@@ -1,4 +1,5 @@
 import type { AttributeValue, Span, SpanContext } from "@opentelemetry/api";
+import { test, vi } from "vitest";
 import { _normalizeXmlHttpInstrumentationSpanAttributes, normalizeXmlHttpInstrumentationSpanAttributes } from "../src/normalizeSpanAttributes.ts";
 import { XmlHttpVerbProperty } from "../src/patchXmlHttpRequest.ts";
 
@@ -125,8 +126,8 @@ function createXmlHttpRequest(options: { verb?: string; status?: number; respons
     return request;
 }
 
-test("when no consumer applyCustomAttributesOnSpan hook is provided, call the normalize function", () => {
-    const normalizeXmlHttpSpanAttributesMock = jest.fn();
+test.concurrent("when no consumer applyCustomAttributesOnSpan hook is provided, call the normalize function", ({ expect }) => {
+    const normalizeXmlHttpSpanAttributesMock = vi.fn();
 
     const config = _normalizeXmlHttpInstrumentationSpanAttributes({}, normalizeXmlHttpSpanAttributesMock);
 
@@ -138,9 +139,9 @@ test("when no consumer applyCustomAttributesOnSpan hook is provided, call the no
     expect(normalizeXmlHttpSpanAttributesMock).toHaveBeenCalledTimes(1);
 });
 
-test("when a consumer applyCustomAttributesOnSpan hook is provided, call both the consumer hook and the normalize function", () => {
-    const applyCustomAttributesOnSpanMock = jest.fn();
-    const normalizeXmlHttpSpanAttributesMock = jest.fn();
+test.concurrent("when a consumer applyCustomAttributesOnSpan hook is provided, call both the consumer hook and the normalize function", ({ expect }) => {
+    const applyCustomAttributesOnSpanMock = vi.fn();
+    const normalizeXmlHttpSpanAttributesMock = vi.fn();
 
     const config = _normalizeXmlHttpInstrumentationSpanAttributes({
         applyCustomAttributesOnSpan: applyCustomAttributesOnSpanMock
@@ -155,7 +156,7 @@ test("when a consumer applyCustomAttributesOnSpan hook is provided, call both th
     expect(normalizeXmlHttpSpanAttributesMock).toHaveBeenCalledTimes(1);
 });
 
-test("add all attributes to the span", () => {
+test.concurrent("add all attributes to the span", ({ expect }) => {
     const config = normalizeXmlHttpInstrumentationSpanAttributes({});
     const responseURL = "http://example.com";
     const span = new DummySpan();
