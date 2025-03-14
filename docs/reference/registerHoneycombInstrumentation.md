@@ -41,11 +41,10 @@ Avoid using `/.+/g,` in production as it could expose customer data to third par
 
 Specify values for the `apiServiceUrls` argument that matches your application's backend URLs. For example, if your backend services are hosted at `https://workleap.com/api`:
 
-```ts !#5
+```ts !#4
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
 registerHoneycombInstrumentation(
-    runtime, "sample", 
     [/https:\/\/workleap.com\/api\.*/], 
     { proxy: "https://sample-proxy" }
 );
@@ -65,7 +64,7 @@ Set the URL to an [OpenTelemetry collector](https://docs.honeycomb.io/send-data/
 ```ts !#4
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy"
 });
 ```
@@ -86,7 +85,7 @@ Set an Honeycomb ingestion [API key](https://docs.honeycomb.io/get-started/confi
 ```ts !#4
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     apiKey: "123"
 });
 ```
@@ -102,7 +101,7 @@ Append the provided [instrumentation](https://opentelemetry.io/docs/languages/js
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { LongTaskInstrumentation } from "@opentelemetry/instrumentation-long-task";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     instrumentations: [
         new LongTaskInstrumentation()
@@ -141,7 +140,7 @@ export class CustomSpanProcessor implements SpanProcessor {
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 import { CustomSpanProcessor } from "./CustomSpanProcessor.ts";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     spanProcessors: [
         new CustomSpanProcessor()
@@ -159,7 +158,7 @@ Replace the default [@opentelemetry/instrumentation-fetch](https://github.com/op
 ```ts !#5-10
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     fetchInstrumentation: (defaultOptions) => {
         return {
@@ -175,7 +174,7 @@ To disable [@opentelemetry/instrumentation-fetch](https://github.com/open-teleme
 ```ts !#5
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     fetchInstrumentation: false
 });
@@ -191,7 +190,7 @@ Replace the default [@opentelemetry/instrumentation-document-load](https://githu
 ```ts !#5-10
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     documentLoadInstrumentation: (defaultOptions) => {
         return {
@@ -207,7 +206,7 @@ To disable [@opentelemetry/instrumentation-document-load](https://github.com/ope
 ```ts !#5-10
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     documentLoadInstrumentation: (defaultOptions) => {
         return {
@@ -228,7 +227,7 @@ By default, [@opentelemetry/instrumentation-xml-http-request](https://github.com
 ```ts !#5-10
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     xmlHttpRequestInstrumentation: (defaultOptions) => {
         return {
@@ -244,7 +243,7 @@ Or set the option to `true` to enable [@opentelemetry/instrumentation-xml-http-r
 ```ts !#5
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     xmlHttpRequestInstrumentation: true
 });
@@ -260,7 +259,7 @@ By default, [@opentelemetryinstrumentation-user-interaction](https://github.com/
 ```ts !#5-10
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     userInteractionInstrumentation: (defaultOptions) => {
         return {
@@ -276,7 +275,7 @@ Or set the option to `true` to enable [@opentelemetryinstrumentation-user-intera
 ```ts !#5
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     userInteractionInstrumentation: true
 });
@@ -292,7 +291,7 @@ Indicates whether or not debug information should be logged to the console.
 ```ts !#5
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     debug: true
 });
@@ -326,7 +325,7 @@ const skipOptionsValidationTransformer: HoneycombSdkOptionsTransformer = config 
     return config;
 }
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy",
     transformers: [skipOptionsValidationTransformer]
 });

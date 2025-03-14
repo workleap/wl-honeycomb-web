@@ -41,7 +41,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy"
 });
 
@@ -114,7 +114,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerHoneycombInstrumentation(runtime, "sample", [/.+/g,], {
+registerHoneycombInstrumentation("sample", [/.+/g,], {
     proxy: "https://sample-proxy"
 });
 
