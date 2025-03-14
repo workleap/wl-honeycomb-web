@@ -1,5 +1,6 @@
 import type { Instrumentation, InstrumentationConfig } from "@opentelemetry/instrumentation";
 import type { SpanProcessor } from "@opentelemetry/sdk-trace-web";
+import { test } from "vitest";
 import { getHoneycombSdkOptions } from "../src/registerHoneycombInstrumentation.ts";
 
 class DummyInstrumentation implements Instrumentation {
@@ -76,23 +77,23 @@ function removeInstrumentationVersionsForSnapshot(options: any) {
     return options;
 }
 
-test("do not throw when an api key is provided", () => {
+test.concurrent("do not throw when an api key is provided", ({ expect }) => {
     expect(() => getHoneycombSdkOptions("foo", ["/foo"], {
         apiKey: "123"
     })).not.toThrow();
 });
 
-test("do not throw when a proxy is provided", () => {
+test.concurrent("do not throw when a proxy is provided", ({ expect }) => {
     expect(() => getHoneycombSdkOptions("foo", ["/foo"], {
         proxy: "https://my-proxy.com"
     })).not.toThrow();
 });
 
-test("throw when both the api key and proxy options are not provided", () => {
+test.concurrent("throw when both the api key and proxy options are not provided", ({ expect }) => {
     expect(() => getHoneycombSdkOptions("foo", ["/foo"])).toThrow();
 });
 
-test("when debug is true", () => {
+test.concurrent("when debug is true", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         debug: true,
         apiKey: "123"
@@ -103,7 +104,7 @@ test("when debug is true", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("when debug is false", () => {
+test.concurrent("when debug is false", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         debug: false,
         apiKey: "123"
@@ -114,7 +115,7 @@ test("when debug is false", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("with custom instrumentations", () => {
+test.concurrent("with custom instrumentations", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         instrumentations: [new DummyInstrumentation()],
         apiKey: "123"
@@ -125,7 +126,7 @@ test("with custom instrumentations", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("with custom span processors", () => {
+test.concurrent("with custom span processors", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         spanProcessors: [new DummySpanProcessor()],
         apiKey: "123"
@@ -136,7 +137,7 @@ test("with custom span processors", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("when fetch instrumentation is false", () => {
+test.concurrent("when fetch instrumentation is false", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         fetchInstrumentation: false,
         apiKey: "123"
@@ -147,7 +148,7 @@ test("when fetch instrumentation is false", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("when fetch instrumentation is a custom function", () => {
+test.concurrent("when fetch instrumentation is a custom function", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         fetchInstrumentation: defaultOptions => ({ ...defaultOptions, ignoreNetworkEvents: false }),
         apiKey: "123"
@@ -158,7 +159,7 @@ test("when fetch instrumentation is a custom function", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("when xml http instrumentation is false", () => {
+test.concurrent("when xml http instrumentation is false", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         xmlHttpRequestInstrumentation: false,
         apiKey: "123"
@@ -169,7 +170,7 @@ test("when xml http instrumentation is false", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("when xml http instrumentation is a custom function", () => {
+test.concurrent("when xml http instrumentation is a custom function", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         xmlHttpRequestInstrumentation: defaultOptions => ({ ...defaultOptions, ignoreNetworkEvents: false }),
         apiKey: "123"
@@ -180,7 +181,7 @@ test("when xml http instrumentation is a custom function", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("when document load instrumentation is false", () => {
+test.concurrent("when document load instrumentation is false", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         documentLoadInstrumentation: false,
         apiKey: "123"
@@ -191,7 +192,7 @@ test("when document load instrumentation is false", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("when document load instrumentation is a custom function", () => {
+test.concurrent("when document load instrumentation is a custom function", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         documentLoadInstrumentation: defaultOptions => ({ ...defaultOptions, ignoreNetworkEvents: false }),
         apiKey: "123"
@@ -202,7 +203,7 @@ test("when document load instrumentation is a custom function", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("when user interaction instrumentation is false", () => {
+test.concurrent("when user interaction instrumentation is false", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         userInteractionInstrumentation: false,
         apiKey: "123"
@@ -213,7 +214,7 @@ test("when user interaction instrumentation is false", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("when user interaction instrumentation is a custom function", () => {
+test.concurrent("when user interaction instrumentation is a custom function", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         userInteractionInstrumentation: defaultOptions => ({ ...defaultOptions, ignoreNetworkEvents: false }),
         apiKey: "123"
@@ -224,7 +225,7 @@ test("when user interaction instrumentation is a custom function", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("with a single transformer", () => {
+test.concurrent("with a single transformer", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         transformers: [
             options => {
@@ -241,7 +242,7 @@ test("with a single transformer", () => {
     expect(cleanedResult).toMatchSnapshot();
 });
 
-test("with multiple transformers", () => {
+test.concurrent("with multiple transformers", ({ expect }) => {
     const result = getHoneycombSdkOptions("foo", ["/foo"], {
         transformers: [
             options => {
