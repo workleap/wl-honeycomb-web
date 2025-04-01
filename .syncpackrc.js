@@ -6,20 +6,36 @@ export default {
     "dependencyTypes": ["prod", "dev"],
     "semverGroups": [
         {
-            "range": "",
-            "dependencyTypes": ["prod", "dev"],
-            "dependencies": ["**"],
-            "packages": ["**"],
-            "label": "packages version should be pinned"
+            "packages": ["@workleap/*"],
+            "dependencyTypes": ["prod", "peer"],
+            "range": "^",
+            "label": "Packages should use ^ for dependencies and peerDependencies."
         },
+        {
+            "packages": ["@workleap/*"],
+            "dependencyTypes": ["dev"],
+            "range": "",
+            "label": "Packages should pin devDependencies."
+        },
+        {
+            "packages": ["@api-key/*", "@proxy/*"],
+            "dependencyTypes": ["prod", "dev"],
+            "range": "",
+            "label": "Samples should pin dependencies and devDependencies."
+        },
+        {
+            "packages": ["workspace-root"],
+            "dependencyTypes": ["dev"],
+            "range": "",
+            "label": "Workspace root should pin devDependencies."
+        }
     ],
     "versionGroups": [
         {
-            "dependencyTypes": ["prod", "dev"],
-            "preferVersion": "highestSemver",
-            "dependencies": ["**"],
             "packages": ["**"],
-            "label": "packages should have a single version across the repository"
+            "dependencyTypes": ["prod", "peer", "dev"],
+            "preferVersion": "highestSemver",
+            "label": "Packages should have a single version across the repository."
         }
     ]
 };
