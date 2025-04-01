@@ -125,9 +125,11 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
             ...getWebAutoInstrumentations(autoInstrumentations),
             ...instrumentations
         ],
+        // @ts-expect-error There is an on-going issue because @honeycombio/opentelemetry-web is super slow to update it's dependencies and it keeps causing types mismatch.
         spanProcessors: [globalAttributeSpanProcessor, ...spanProcessors]
     } satisfies HoneycombSdkOptions;
 
+    // @ts-expect-error There is an on-going issue because @honeycombio/opentelemetry-web is super slow to update it's dependencies and it keeps causing types mismatch.
     return applyTransformers(sdkOptions, transformers, {
         debug: !!debug
     });
