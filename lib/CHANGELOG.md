@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 2.1.2
+
+### Patch Changes
+
+- [#27](https://github.com/workleap/wl-honeycomb-web/pull/27) [`2ce054f`](https://github.com/workleap/wl-honeycomb-web/commit/2ce054f06fdbc90f5def97982113cabe3b86e067) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Updated dependencies.
+
 ## 2.1.1
 
 ### Patch Changes
