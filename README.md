@@ -4,12 +4,7 @@ Default [Honeycomb](https://www.honeycomb.io/) instrumentation for [Workleap](ht
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 [![CI](https://github.com/workleap/wl-honeycomb-web/actions/workflows/ci.yml/badge.svg)](https://github.com/workleap/wl-honeycomb-web/actions/workflows/ci.yml)
-
-### Packages
-
-| Name | NPM |
-| --- | --- |
-| [@workleap/honeycomb](packages/core/README.md) | [![npm version](https://img.shields.io/npm/v/@workleap/honeycomb)](https://www.npmjs.com/package/@workleap/honeycomb) |
+[![npm version](https://img.shields.io/npm/v/@workleap/honeycomb)](https://www.npmjs.com/package/@workleap/honeycomb)
 
 ## Have a question or found an issue?
 
