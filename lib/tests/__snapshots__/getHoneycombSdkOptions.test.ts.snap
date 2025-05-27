@@ -81,6 +81,7 @@ exports[`when debug is false 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -184,6 +185,7 @@ exports[`when debug is true 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -287,6 +289,7 @@ exports[`when document load instrumentation is a custom function 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -347,6 +350,7 @@ exports[`when document load instrumentation is false 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -449,6 +453,7 @@ exports[`when fetch instrumentation is a custom function 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -609,6 +614,7 @@ exports[`when user interaction instrumentation is a custom function 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -758,6 +764,7 @@ exports[`when user interaction instrumentation is false 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -861,6 +868,7 @@ exports[`when xml http instrumentation is a custom function 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -906,6 +914,7 @@ exports[`when xml http instrumentation is a custom function 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -1010,6 +1019,7 @@ exports[`when xml http instrumentation is false 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -1113,6 +1123,7 @@ exports[`with a single transformer 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -1216,6 +1227,7 @@ exports[`with custom instrumentations 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -1322,6 +1334,7 @@ exports[`with custom span processors 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
@@ -1426,6 +1439,7 @@ exports[`with multiple transformers 1`] = `
           },
         },
       },
+      "_semconvStability": 2,
       "_tasksCount": 0,
       "_tracer": ProxyTracer {
         "_provider": ProxyTracerProvider {},
