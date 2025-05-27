@@ -1,5 +1,19 @@
 # @workleap/honeycomb
 
+## 3.0.0
+
+### Major Changes
+
+- [#35](https://github.com/workleap/wl-honeycomb-web/pull/35) [`c3e54be`](https://github.com/workleap/wl-honeycomb-web/commit/c3e54bed9618c1c9916561e99fda2075492d56fa) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Updated dependency versions and moved the following `peerDependencies` to `dependencies`:
+
+  - @honeycombio/opentelemetry-web
+  - @opentelemetry/auto-instrumentations-web
+  - @opentelemetry/instrumentation-document-load
+  - @opentelemetry/instrumentation-fetch
+  - @opentelemetry/instrumentation-user-interaction
+  - @opentelemetry/instrumentation-xml-http-request
+  - @opentelemetry/sdk-trace-web
+
 ## 2.1.2
 
 ### Patch Changes
