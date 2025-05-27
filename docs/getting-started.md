@@ -15,15 +15,15 @@ First, open a terminal at the root of the application and install the following 
 
 +++ pnpm
 ```bash
-pnpm add @workleap/honeycomb @honeycombio/opentelemetry-web @opentelemetry/api @opentelemetry/auto-instrumentations-web @opentelemetry/instrumentation-document-load @opentelemetry/instrumentation-fetch @opentelemetry/instrumentation-user-interaction @opentelemetry/instrumentation-xml-http-request @opentelemetry/sdk-trace-web
+pnpm add @workleap/honeycomb @opentelemetry/api
 ```
 +++ yarn
 ```bash
-yarn add @workleap/honeycomb @honeycombio/opentelemetry-web @opentelemetry/api @opentelemetry/auto-instrumentations-web @opentelemetry/instrumentation-document-load @opentelemetry/instrumentation-fetch @opentelemetry/instrumentation-user-interaction @opentelemetry/instrumentation-xml-http-request @opentelemetry/sdk-trace-web
+yarn add @workleap/honeycomb @opentelemetry/api
 ```
 +++ npm
 ```bash
-npm install @workleap/honeycomb @honeycombio/opentelemetry-web @opentelemetry/api @opentelemetry/auto-instrumentations-web @opentelemetry/instrumentation-document-load @opentelemetry/instrumentation-fetch @opentelemetry/instrumentation-user-interaction @opentelemetry/instrumentation-xml-http-request @opentelemetry/sdk-trace-web
+npm install @workleap/honeycomb @opentelemetry/api
 ```
 +++
 
