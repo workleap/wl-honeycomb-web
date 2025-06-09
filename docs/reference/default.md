@@ -1,7 +1,5 @@
 ---
 order: 80
-icon: gear
-expanded: true
 toc:
     depth: 2-3
 ---

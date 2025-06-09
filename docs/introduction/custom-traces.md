@@ -1,6 +1,5 @@
 ---
 order: 90
-icon: hash
 ---
 
 `@workleap/honeycomb` does not provide a proprietary API for traces. Applications are expected to use the [OpenTelemetry API](https://docs.honeycomb.io/send-data/javascript-browser/honeycomb-distribution/#add-custom-instrumentation) to send custom traces to Honeycomb:

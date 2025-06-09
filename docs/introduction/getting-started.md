@@ -1,6 +1,5 @@
 ---
 order: 100
-icon: rocket
 ---
 
 # Getting started
@@ -13,27 +12,13 @@ Honeycomb's in-house [HoneycombWebSDK](https://docs.honeycomb.io/send-data/javas
 
 First, open a terminal at the root of the application and install the following packages:
 
-+++ pnpm
 ```bash
 pnpm add @workleap/honeycomb @opentelemetry/api
 ```
-+++ yarn
-```bash
-yarn add @workleap/honeycomb @opentelemetry/api
-```
-+++ npm
-```bash
-npm install @workleap/honeycomb @opentelemetry/api
-```
-+++
-
-!!!warning
-While you can use any package manager to develop an application with Squide, it is highly recommended that you use [PNPM](https://pnpm.io/) as the guides has been developed and tested with PNPM.
-!!!
 
 ## Register instrumentation
 
-Then, update the application bootstrapping code to register Honeycomb instrumentation using the [registerHoneycombInstrumentation](./reference/registerHoneycombInstrumentation.md) function:
+Then, update the application bootstrapping code to register Honeycomb instrumentation using the [registerHoneycombInstrumentation](../reference/registerHoneycombInstrumentation.md) function:
 
 ```tsx !#6-8 index.tsx
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
@@ -69,7 +54,7 @@ With instrumentation in place, a few traces are now available 👇
 Individual fetch request performance can be monitored from end to end:
 
 :::align-image-left
-![Fetch instrumentation](./static/honeycomb-http-get.png)
+![Fetch instrumentation](../static/honeycomb-http-get.png)
 :::
 
 ### Document load
@@ -77,7 +62,7 @@ Individual fetch request performance can be monitored from end to end:
 The loading performance of the DOM can be monitored:
 
 :::align-image-left
-![Document load instrumentation](./static/honeycomb-document-load.png)
+![Document load instrumentation](../static/honeycomb-document-load.png)
 :::
 
 ### Unmanaged error
@@ -85,7 +70,7 @@ The loading performance of the DOM can be monitored:
 When an unmanaged error occurs, it's automatically recorded:
 
 :::align-image-left
-![Recorded error](./static/honeycomb-failing-http-request.png)
+![Recorded error](../static/honeycomb-failing-http-request.png)
 :::
 
 ### Real User Monitoring (RUM)
@@ -93,18 +78,18 @@ When an unmanaged error occurs, it's automatically recorded:
 The default instrumentation will automatically track the appropriate metrics to display RUM information:
 
 :::align-image-left
-![Largest Contentful Paint](./static/honeycomb-lcp.png){width=536 height=378}
+![Largest Contentful Paint](../static/honeycomb-lcp.png){width=536 height=378}
 :::
 :::align-image-left
-![Cumulative Layout Shift](./static/honeycomb-cls.png){width=536 height=378}
+![Cumulative Layout Shift](../static/honeycomb-cls.png){width=536 height=378}
 :::
 :::align-image-left
-![Interaction to Next Paint](./static/honeycomb-inp.png){width=532 height=358}
+![Interaction to Next Paint](../static/honeycomb-inp.png){width=532 height=358}
 :::
 
 ## Set custom user attributes
 
-Most application needs to set custom attributes on traces about the current user environment. To help with that, `@workleap/honeycomb` expose the [setGlobalSpanAttribute](./reference/setGlobalSpanAttribute.md) function.
+Most application needs to set custom attributes on traces about the current user environment. To help with that, `@workleap/honeycomb` expose the [setGlobalSpanAttributes](../reference/setGlobalSpanAttributes.md) function.
 
 Update your application bootstrapping code to include the `setGlobalSpanAttribute` function:
 
@@ -129,10 +114,10 @@ root.render(
 );
 ```
 
-Now, every trace recorded after the execution of `setGlobalSpanAttributes` will include the custom attributes `app.user_id`:
+Now, every trace recorded after the execution of `setGlobalSpanAttribute` will include the custom attributes `app.user_id`:
 
 :::align-image-left
-![Custom attributes](./static/honeycomb-custom-attributes.png){width=204 height=161}
+![Custom attributes](../static/honeycomb-custom-attributes.png){width=204 height=161}
 :::
 
 ## Custrom traces
@@ -147,7 +132,7 @@ Start the application in a development environment using the dev script. Render 
 
 If you are experiencing issues with this guide:
 
-- Set the [debug](./reference/registerHoneycombInstrumentation.md#debug) predefined option to `true`.
+- Set the [debug](../reference/registerHoneycombInstrumentation.md#debug) predefined option to `true`.
 - Open the [DevTools](https://developer.chrome.com/docs/devtools/) console. You'll see a log entry for every Honeycomb traces.
     - `honeycombio/opentelemetry-web: Honeycomb link: https://ui.honeycomb.io/...`
 - Refer to the sample on [GitHub](https://github.com/workleap/wl-honeycomb-web/tree/main/sample).
