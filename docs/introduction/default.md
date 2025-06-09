@@ -6,5 +6,5 @@ toc:
 
 # Introduction
 
-- [registerHoneycombInstrumentation](./getting-started.md)
-- [setGlobalSpanAttributes](./custom-traces.md)
+- [Getting started](./getting-started.md)
+- [Custom traces](./custom-traces.md)
