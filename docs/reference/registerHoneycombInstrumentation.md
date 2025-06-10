@@ -42,7 +42,7 @@ Avoid using `/.+/g,` in production as it could expose customer data to third par
 
 Specify values for the `apiServiceUrls` argument that matches your application's backend URLs. For example, if your backend services are hosted at `https://workleap.com/api`:
 
-```ts !#4
+```ts !#6
 import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
 
 registerHoneycombInstrumentation(
