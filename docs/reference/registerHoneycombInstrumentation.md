@@ -55,7 +55,7 @@ registerHoneycombInstrumentation(
 
 ## Predefined options
 
-The `registerHoneycombInstrumentation(namespace, serviceName, apiServiceUrls, options)` function can be used as shown in the previous example, however, if you wish to customize the default configuration, the function also accept a few predefined options to help with that 👇
+The `registerHoneycombInstrumentation(namespace, serviceName, apiServiceUrls, options)` function can be used as shown in the previous example, however, if you wish to customize the default configuration, the function also accepts a few predefined options to help with that 👇
 
 ### `proxy`
 
