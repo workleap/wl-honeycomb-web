@@ -3,7 +3,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerHoneycombInstrumentation("honeycomb-api-key-sample", [/http:\/\/localhost:1234\.*/], {
+registerHoneycombInstrumentation("sample", "honeycomb-api-key-sample", [/http:\/\/localhost:1234\.*/], {
     // Default to a space so it doesn't throw at runtime.
     apiKey: process.env.HONEYCOMB_API_KEY ?? " ",
     debug: true

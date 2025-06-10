@@ -6,7 +6,7 @@ import type { UserInteractionInstrumentationConfig } from "@opentelemetry/instru
 import type { XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
 import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry/sdk-trace-web";
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
-import { globalAttributeSpanProcessor } from "./globalAttributes.ts";
+import { globalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
 import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeycombTypes.ts";
 import { normalizeFetchInstrumentationSpanAttributes, normalizeXmlHttpInstrumentationSpanAttributes } from "./normalizeSpanAttributes.ts";
 import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
@@ -55,8 +55,7 @@ export interface RegisterHoneycombInstrumentationOptions {
     transformers?: HoneycombSdkOptionsTransformer[];
 }
 
-// Must specify the return type, otherwise we get a TS4058: Return type of exported function has or is using name X from external module "XYZ" but cannot be named.
-export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}): HoneycombSdkOptions {
+export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}) {
     const {
         proxy,
         apiKey,
@@ -136,7 +135,7 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
 /**
  * @see https://workleap.github.io/wl-honeycomb-web
  */
-export function registerHoneycombInstrumentation(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options?: RegisterHoneycombInstrumentationOptions) {
+export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options?: RegisterHoneycombInstrumentationOptions) {
     if (options?.proxy) {
         patchXmlHttpRequest(options?.proxy);
     }
@@ -145,4 +144,11 @@ export function registerHoneycombInstrumentation(serviceName: NonNullable<Honeyc
     const instance = new HoneycombWebSDK(sdkOptions);
 
     instance.start();
+
+    // service.namespace is a custom field recommended by Honeycomb to organize the data.
+    setGlobalSpanAttribute("service.namespace", namespace);
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis.__HONEYCOMB_INSTRUMENTATION_IS_REGISTERED__ = true;
 }

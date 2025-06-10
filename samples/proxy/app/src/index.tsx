@@ -3,7 +3,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-registerHoneycombInstrumentation("honeycomb-proxy-sample", [/http:\/\/localhost:1234\.*/], {
+registerHoneycombInstrumentation("sample", "honeycomb-proxy-sample", [/http:\/\/localhost:1234\.*/], {
     proxy: "http://localhost:5678/v1/traces",
     debug: true
 });
