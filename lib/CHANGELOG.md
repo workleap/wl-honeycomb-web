@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 4.0.0
+
+### Major Changes
+
+- [#40](https://github.com/workleap/wl-honeycomb-web/pull/40) [`d91b5b5`](https://github.com/workleap/wl-honeycomb-web/commit/d91b5b561b4f4b2fcb3346bc69c3b43827530aa9) Thanks [@patricklafrance](https://github.com/patricklafrance)! - A "namespace" value is now required. See https://github.com/workleap/wl-honeycomb-web/issues/31.
+
 ## 3.0.0
 
 ### Major Changes
