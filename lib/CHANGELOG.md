@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 5.0.0
+
+### Major Changes
+
+- [#44](https://github.com/workleap/wl-honeycomb-web/pull/44) [`9cc216e`](https://github.com/workleap/wl-honeycomb-web/commit/9cc216ef84d834471017a8a2918713c23fd0a62e) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Request hook for the fetch instrumentation can now be registered dynamically rather than only being specified at initialization. This feature is not documented because it's for library integration code only but since it does define by default a request hook with the fetch instrumentation, it seems to be worth of being a major in case it breaks some code.
+
 ## 4.0.0
 
 ### Major Changes
