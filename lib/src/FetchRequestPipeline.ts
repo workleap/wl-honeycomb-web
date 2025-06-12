@@ -49,6 +49,7 @@ const fetchRequestPipelineHook: FetchRequestHookFunction = (span: Span, request:
 };
 
 export function augmentFetchInstrumentationOptionsWithFetchRequestPipeline(options: FetchInstrumentationConfig) {
+    // In case this function is executed twice by mistake.
     pipeline.clearHooks();
 
     if (options.requestHook) {
