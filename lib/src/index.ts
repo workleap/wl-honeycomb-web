@@ -1,4 +1,5 @@
 export type { HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
+export { registerFetchRequestHook, type FetchRequestPipelineHookFunction } from "./FetchRequestPipeline.ts";
 export { setGlobalSpanAttribute, setGlobalSpanAttributes } from "./globalAttributes.ts";
 export * from "./honeycombTypes.ts";
 export {
