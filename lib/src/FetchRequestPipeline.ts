@@ -4,16 +4,14 @@ import type { FetchInstrumentationConfig, FetchRequestHookFunction } from "@open
 export type FetchRequestPipelineHookFunction = (span: Span, request: Request | RequestInit) => void | true;
 
 export class FetchRequestPipeline {
-    private readonly hooks: FetchRequestPipelineHookFunction[] = [];
+    private readonly hooks: Set<FetchRequestPipelineHookFunction> = new Set();
 
     registerHook(hook: FetchRequestPipelineHookFunction) {
-        this.hooks.push(hook);
+        this.hooks.add(hook);
     }
 
     dispatchRequest(span: Span, request: Request | RequestInit) {
-        for (let i = 0; i < this.hooks.length; i += 1) {
-            const hook = this.hooks[i];
-
+        for (const hook of this.hooks) {
             const result = hook(span, request);
 
             // A hook can return "true" to stop the propagation to the subsequent hooks.
@@ -24,7 +22,7 @@ export class FetchRequestPipeline {
     }
 
     get hookCount() {
-        return this.hooks.length;
+        return this.hooks.size;
     }
 }
 
