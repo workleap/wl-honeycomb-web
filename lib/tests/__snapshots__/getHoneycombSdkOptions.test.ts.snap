@@ -14,6 +14,7 @@ exports[`when debug is false 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -57,6 +58,7 @@ exports[`when debug is false 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -118,6 +120,7 @@ exports[`when debug is true 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -161,6 +164,7 @@ exports[`when debug is true 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -222,6 +226,7 @@ exports[`when document load instrumentation is a custom function 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -265,6 +270,7 @@ exports[`when document load instrumentation is a custom function 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -326,6 +332,7 @@ exports[`when document load instrumentation is false 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -429,6 +436,7 @@ exports[`when fetch instrumentation is a custom function 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -547,6 +555,7 @@ exports[`when user interaction instrumentation is a custom function 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -590,6 +599,7 @@ exports[`when user interaction instrumentation is a custom function 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -697,6 +707,7 @@ exports[`when user interaction instrumentation is false 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -740,6 +751,7 @@ exports[`when user interaction instrumentation is false 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -801,6 +813,7 @@ exports[`when xml http instrumentation is a custom function 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -844,6 +857,7 @@ exports[`when xml http instrumentation is a custom function 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -890,6 +904,7 @@ exports[`when xml http instrumentation is a custom function 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-xml-http-request",
@@ -952,6 +967,7 @@ exports[`when xml http instrumentation is false 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -995,6 +1011,7 @@ exports[`when xml http instrumentation is false 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -1056,6 +1073,7 @@ exports[`with a single transformer 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -1099,6 +1117,7 @@ exports[`with a single transformer 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -1160,6 +1179,7 @@ exports[`with custom instrumentations 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -1203,6 +1223,7 @@ exports[`with custom instrumentations 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -1267,6 +1288,7 @@ exports[`with custom span processors 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -1310,6 +1332,7 @@ exports[`with custom span processors 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",
@@ -1372,6 +1395,7 @@ exports[`with multiple transformers 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-document-load",
@@ -1415,6 +1439,7 @@ exports[`with multiple transformers 1`] = `
         "propagateTraceHeaderCorsUrls": [
           "/foo",
         ],
+        "requestHook": [Function],
       },
       "_diag": DiagComponentLogger {
         "_namespace": "@opentelemetry/instrumentation-fetch",

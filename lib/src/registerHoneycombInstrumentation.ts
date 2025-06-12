@@ -6,6 +6,7 @@ import type { UserInteractionInstrumentationConfig } from "@opentelemetry/instru
 import type { XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
 import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry/sdk-trace-web";
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
+import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook } from "./FetchRequestPipeline.ts";
 import { globalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
 import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeycombTypes.ts";
 import { normalizeFetchInstrumentationSpanAttributes, normalizeXmlHttpInstrumentationSpanAttributes } from "./normalizeSpanAttributes.ts";
@@ -81,7 +82,12 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     const autoInstrumentations: InstrumentationConfigMap = {};
 
     if (fetchInstrumentation) {
-        autoInstrumentations["@opentelemetry/instrumentation-fetch"] = normalizeFetchInstrumentationSpanAttributes(fetchInstrumentation(instrumentationOptions));
+        autoInstrumentations["@opentelemetry/instrumentation-fetch"] =
+            normalizeFetchInstrumentationSpanAttributes(
+                augmentFetchInstrumentationOptionsWithFetchRequestPipeline(
+                    fetchInstrumentation(instrumentationOptions)
+                )
+            );
     } else {
         autoInstrumentations["@opentelemetry/instrumentation-fetch"] = {
             enabled: false
@@ -148,7 +154,18 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // service.namespace is a custom field recommended by Honeycomb to organize the data.
     setGlobalSpanAttribute("service.namespace", namespace);
 
+    // Indicates to the host applications that the honeycomb instrumentation
+    // has been registered.
+    // It's useful in cases where an "add-on", like the platform widgets needs
+    // to know whether or not the host application is using Honeycomb.
+    // While there are ways that the host application could tell to an "add-on" if
+    // it's using Honeycomb or not, doing it this way is transparent for the consumer,
+    // which is great for DX.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    globalThis.__HONEYCOMB_INSTRUMENTATION_IS_REGISTERED__ = true;
+    globalThis.__WLP_HONEYCOMB_INSTRUMENTATION_IS_REGISTERED__ = true;
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis.__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK = registerFetchRequestHook;
 }

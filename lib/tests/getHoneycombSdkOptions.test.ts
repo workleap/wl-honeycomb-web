@@ -1,6 +1,7 @@
 import type { Instrumentation, InstrumentationConfig } from "@opentelemetry/instrumentation";
 import type { SpanProcessor } from "@opentelemetry/sdk-trace-web";
 import { test } from "vitest";
+import { getFetchRequestHookCount } from "../src/FetchRequestPipeline.ts";
 import { getHoneycombSdkOptions } from "../src/registerHoneycombInstrumentation.ts";
 
 class DummyInstrumentation implements Instrumentation {
@@ -157,6 +158,21 @@ test.concurrent("when fetch instrumentation is a custom function", ({ expect }) 
     const cleanedResult = removeInstrumentationVersionsForSnapshot(result);
 
     expect(cleanedResult).toMatchSnapshot();
+});
+
+// Intentionally not concurrent.
+test("when fetch instrumentation custom function returns a request hook, automatically add the request hook to the pipeline", ({ expect }) => {
+    getHoneycombSdkOptions("foo", ["/foo"], {
+        fetchInstrumentation: defaultOptions => ({
+            ...defaultOptions,
+            requestHook: () => {
+                console.log("toto");
+            }
+        }),
+        apiKey: "123"
+    });
+
+    expect(getFetchRequestHookCount()).toBe(1);
 });
 
 test.concurrent("when xml http instrumentation is false", ({ expect }) => {
