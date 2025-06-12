@@ -4,7 +4,7 @@ import type { FetchInstrumentationConfig, FetchRequestHookFunction } from "@open
 export type FetchRequestPipelineHookFunction = (span: Span, request: Request | RequestInit) => void | true;
 
 export class FetchRequestPipeline {
-    private readonly hooks: FetchRequestPipelineHookFunction[] = [];
+    private hooks: FetchRequestPipelineHookFunction[] = [];
 
     registerHook(hook: FetchRequestPipelineHookFunction) {
         this.hooks.push(hook);
@@ -21,6 +21,10 @@ export class FetchRequestPipeline {
                 break;
             }
         }
+    }
+
+    clearHooks() {
+        this.hooks = [];
     }
 
     get hookCount() {
@@ -45,8 +49,10 @@ const fetchRequestPipelineHook: FetchRequestHookFunction = (span: Span, request:
 };
 
 export function augmentFetchInstrumentationOptionsWithFetchRequestPipeline(options: FetchInstrumentationConfig) {
+    pipeline.clearHooks();
+
     if (options.requestHook) {
-        registerFetchRequestHook(options.requestHook);
+        pipeline.registerHook(options.requestHook);
     }
 
     options.requestHook = fetchRequestPipelineHook;
