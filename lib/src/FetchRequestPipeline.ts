@@ -4,10 +4,14 @@ import type { FetchInstrumentationConfig, FetchRequestHookFunction } from "@open
 export type FetchRequestPipelineHookFunction = (span: Span, request: Request | RequestInit) => void | true;
 
 export class FetchRequestPipeline {
-    private readonly hooks: Set<FetchRequestPipelineHookFunction> = new Set();
+    private hooks: Set<FetchRequestPipelineHookFunction> = new Set();
 
     registerHook(hook: FetchRequestPipelineHookFunction) {
         this.hooks.add(hook);
+    }
+
+    registerHookAtStart(hook: FetchRequestPipelineHookFunction) {
+        this.hooks = new Set([hook, ...this.hooks]);
     }
 
     dispatchRequest(span: Span, request: Request | RequestInit) {
@@ -31,6 +35,12 @@ const pipeline = new FetchRequestPipeline();
 export function registerFetchRequestHook(hook: FetchRequestPipelineHookFunction) {
     if (hook) {
         pipeline.registerHook(hook);
+    }
+}
+
+export function registerFetchRequestHookAtStart(hook: FetchRequestPipelineHookFunction) {
+    if (hook) {
+        pipeline.registerHookAtStart(hook);
     }
 }
 
