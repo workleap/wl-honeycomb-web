@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 5.0.2
+
+### Patch Changes
+
+- [#49](https://github.com/workleap/wl-honeycomb-web/pull/49) [`3e83452`](https://github.com/workleap/wl-honeycomb-web/commit/3e83452029427013f4f34c371d342f3786b4e703) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Fix release v5.0.1.
+
 ## 5.0.1
 
 ### Patch Changes
