@@ -87,3 +87,26 @@ test.concurrent("when a hook return something else than true, subsequent hooks a
     expect(hook2).toHaveBeenCalledTimes(1);
     expect(hook3).toHaveBeenCalledTimes(1);
 });
+
+test.concurrent("when a hook is registered at start, it's executed first", ({ expect }) => {
+    const pipeline = new FetchRequestPipeline();
+
+    const hook1 = vi.fn();
+    const hook2 = vi.fn();
+    const hook3 = vi.fn();
+
+    pipeline.registerHook(hook1);
+    pipeline.registerHook(hook2);
+    pipeline.registerHookAtStart(hook3);
+
+    const request: RequestInit = { method: "GET" };
+
+    pipeline.dispatchRequest(new DummySpan(), request);
+
+    expect(hook1).toHaveBeenCalledTimes(1);
+    expect(hook2).toHaveBeenCalledTimes(1);
+    expect(hook3).toHaveBeenCalledTimes(1);
+
+    expect(hook3.mock.invocationCallOrder[0]).toBeLessThan(hook1.mock.invocationCallOrder[0]);
+    expect(hook3.mock.invocationCallOrder[0]).toBeLessThan(hook2.mock.invocationCallOrder[0]);
+});
