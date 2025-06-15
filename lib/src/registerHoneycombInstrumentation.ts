@@ -6,7 +6,7 @@ import type { UserInteractionInstrumentationConfig } from "@opentelemetry/instru
 import type { XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
 import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry/sdk-trace-web";
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
-import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook } from "./FetchRequestPipeline.ts";
+import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook, registerFetchRequestHookAtStart } from "./FetchRequestPipeline.ts";
 import { globalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
 import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeycombTypes.ts";
 import { normalizeFetchInstrumentationSpanAttributes, normalizeXmlHttpInstrumentationSpanAttributes } from "./normalizeSpanAttributes.ts";
@@ -168,4 +168,8 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     globalThis.__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK = registerFetchRequestHook;
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    globalThis.__WLP_HONEYCOMB_REGISTER_DYNAMIC_FETCH_REQUEST_HOOK_AT_START = registerFetchRequestHookAtStart;
 }
