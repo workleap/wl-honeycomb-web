@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 5.0.1
+
+### Patch Changes
+
+- [#48](https://github.com/workleap/wl-honeycomb-web/pull/48) [`0d19b7f`](https://github.com/workleap/wl-honeycomb-web/commit/0d19b7f1cacbcfb3eac1afe6aba7d9e24b9c05ef) Thanks [@patricklafrance](https://github.com/patricklafrance)! - The fetch request hook pipeline can now register a dynamic hook at the start position rather than always appending.
+
 ## 5.0.0
 
 ### Major Changes
