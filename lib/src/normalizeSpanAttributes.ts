@@ -1,5 +1,6 @@
 import type { ReadableSpan, SpanProcessor } from "@opentelemetry/sdk-trace-web";
 
+// Based on: https://opentelemetry.io/docs/specs/semconv/registry/attributes/http.
 class NormalizeAttributesSpanProcessor implements SpanProcessor {
     onStart() {}
 
