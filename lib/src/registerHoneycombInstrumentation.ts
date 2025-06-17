@@ -9,7 +9,7 @@ import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyT
 import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook, registerFetchRequestHookAtStart } from "./FetchRequestPipeline.ts";
 import { globalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
 import type { HoneycombSdkInstrumentations, HoneycombSdkOptions } from "./honeycombTypes.ts";
-import { normalizeAttributesSpanProcessor } from "./normalizeSpanAttributes.ts";
+import { normalizeAttributesSpanProcessor } from "./NormalizeAttributesSpanProcessor.ts";
 import { patchXmlHttpRequest } from "./patchXmlHttpRequest.ts";
 
 /**
