@@ -1,4 +1,4 @@
-import { describe, test, vi } from "vitest";
+import { test, vi } from "vitest";
 import { _normalizeFetchInstrumentationSpanAttributes, normalizeFetchInstrumentationSpanAttributes } from "../src/normalizeSpanAttributes.ts";
 import { DummySpan } from "./utils.ts";
 

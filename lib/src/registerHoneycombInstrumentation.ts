@@ -58,7 +58,7 @@ export interface RegisterHoneycombInstrumentationOptions {
     transformers?: HoneycombSdkOptionsTransformer[];
 }
 
-export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions) {
+export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}) {
     const {
         proxy,
         apiKey,
