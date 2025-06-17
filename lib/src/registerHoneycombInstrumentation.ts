@@ -5,6 +5,7 @@ import type { FetchInstrumentationConfig } from "@opentelemetry/instrumentation-
 import type { UserInteractionInstrumentationConfig } from "@opentelemetry/instrumentation-user-interaction";
 import type { XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
 import type { PropagateTraceHeaderCorsUrls, SpanProcessor } from "@opentelemetry/sdk-trace-web";
+import { v4 as uuidv4 } from "uuid";
 import { applyTransformers, type HoneycombSdkOptionsTransformer } from "./applyTransformers.ts";
 import { augmentFetchInstrumentationOptionsWithFetchRequestPipeline, registerFetchRequestHook, registerFetchRequestHookAtStart } from "./FetchRequestPipeline.ts";
 import { globalAttributeSpanProcessor, setGlobalSpanAttribute } from "./globalAttributes.ts";
@@ -44,6 +45,7 @@ const defaultDefineDocumentLoadInstrumentationOptions: DefineDocumentLoadInstrum
  * @see https://workleap.github.io/wl-honeycomb-web
  */
 export interface RegisterHoneycombInstrumentationOptions {
+    sessionId?: string;
     proxy?: string;
     apiKey?: HoneycombSdkOptions["apiKey"];
     debug?: HoneycombSdkOptions["debug"];
@@ -56,7 +58,7 @@ export interface RegisterHoneycombInstrumentationOptions {
     transformers?: HoneycombSdkOptionsTransformer[];
 }
 
-export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}) {
+export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions) {
     const {
         proxy,
         apiKey,
@@ -95,7 +97,10 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
     }
 
     if (xmlHttpRequestInstrumentation) {
-        autoInstrumentations["@opentelemetry/instrumentation-xml-http-request"] = normalizeXmlHttpInstrumentationSpanAttributes(xmlHttpRequestInstrumentation(instrumentationOptions));
+        autoInstrumentations["@opentelemetry/instrumentation-xml-http-request"] =
+            normalizeXmlHttpInstrumentationSpanAttributes(
+                xmlHttpRequestInstrumentation(instrumentationOptions)
+            );
     } else {
         autoInstrumentations["@opentelemetry/instrumentation-xml-http-request"] = {
             enabled: false
@@ -141,8 +146,8 @@ export function getHoneycombSdkOptions(serviceName: NonNullable<HoneycombSdkOpti
 /**
  * @see https://workleap.github.io/wl-honeycomb-web
  */
-export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options?: RegisterHoneycombInstrumentationOptions) {
-    if (options?.proxy) {
+export function registerHoneycombInstrumentation(namespace: string, serviceName: NonNullable<HoneycombSdkOptions["serviceName"]>, apiServiceUrls: PropagateTraceHeaderCorsUrls, options: RegisterHoneycombInstrumentationOptions = {}) {
+    if (options.proxy) {
         patchXmlHttpRequest(options?.proxy);
     }
 
@@ -151,8 +156,16 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
 
     instance.start();
 
-    // service.namespace is a custom field recommended by Honeycomb to organize the data.
+    // This is a custom field recommended by Honeycomb to organize the data.
     setGlobalSpanAttribute("service.namespace", namespace);
+
+    // The session id will be used by host applications to correlate the anonymous traces (before authentication)
+    // with the authenticated traces.
+    if (options.sessionId) {
+        setGlobalSpanAttribute("app.session.id", options.sessionId);
+    } else {
+        setGlobalSpanAttribute("app.session.id", uuidv4());
+    }
 
     // Indicates to the host applications that the honeycomb instrumentation
     // has been registered.

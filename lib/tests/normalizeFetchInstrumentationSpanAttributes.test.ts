@@ -1,4 +1,4 @@
-import { test, vi } from "vitest";
+import { describe, test, vi } from "vitest";
 import { _normalizeFetchInstrumentationSpanAttributes, normalizeFetchInstrumentationSpanAttributes } from "../src/normalizeSpanAttributes.ts";
 import { DummySpan } from "./utils.ts";
 
@@ -34,7 +34,7 @@ test.concurrent("when a consumer applyCustomAttributesOnSpan hook is provided, c
     expect(normalizeFetchSpanAttributesMock).toHaveBeenCalledTimes(1);
 });
 
-test.concurrent("add all attributes to the span", ({ expect }) => {
+test.concurrent("when the request argument is a RequestInit object literal, add attributes to the span", ({ expect }) => {
     const config = normalizeFetchInstrumentationSpanAttributes({});
 
     const span = new DummySpan();
@@ -45,5 +45,23 @@ test.concurrent("add all attributes to the span", ({ expect }) => {
 
     expect(span.attributes.some(x => x.key === "http.request.method" && x.value === "GET")).toBeTruthy();
     expect(span.attributes.some(x => x.key === "http.response.status_code" && x.value === 200)).toBeTruthy();
-    expect(span.attributes.some(x => x.key === "url.full")).toBeTruthy();
 });
+
+test.concurrent("when the request argument is a Request instance, add attributes to the span", ({ expect }) => {
+    const config = normalizeFetchInstrumentationSpanAttributes({});
+
+    const span = new DummySpan();
+    const request = new Request("http://my-api.com", { method: "GET" });
+    const response = new Response(JSON.stringify({ foo: "bar" }), { status: 200 });
+
+    config.applyCustomAttributesOnSpan!(span, request, response);
+
+    expect(span.attributes.some(x => x.key === "http.request.method" && x.value === "GET")).toBeTruthy();
+    expect(span.attributes.some(x => x.key === "http.response.status_code" && x.value === 200)).toBeTruthy();
+    expect(span.attributes.some(x => x.key === "url.full" && x.value === "http://my-api.com/")).toBeTruthy();
+    expect(span.attributes.some(x => x.key === "url.scheme" && x.value === "http:")).toBeTruthy();
+    expect(span.attributes.some(x => x.key === "http.host" && x.value === "my-api.com")).toBeTruthy();
+    expect(span.attributes.some(x => x.key === "server.address" && x.value === "my-api.com")).toBeTruthy();
+    expect(span.attributes.some(x => x.key === "server.port" && x.value === "")).toBeTruthy();
+});
+
