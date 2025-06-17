@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 5.1.1
+
+### Patch Changes
+
+- [#53](https://github.com/workleap/wl-honeycomb-web/pull/53) [`a750cd2`](https://github.com/workleap/wl-honeycomb-web/commit/a750cd2366c767cadabe191a04727fb02b51ecbd) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Normalizing HTTP attributes for good.
+
 ## 5.1.0
 
 ### Minor Changes
