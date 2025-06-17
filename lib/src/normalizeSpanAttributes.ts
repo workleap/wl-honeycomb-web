@@ -1,87 +1,83 @@
-import type { Span } from "@opentelemetry/api";
-import type { FetchCustomAttributeFunction, FetchInstrumentationConfig } from "@opentelemetry/instrumentation-fetch";
-import type { XHRCustomAttributeFunction, XMLHttpRequestInstrumentationConfig } from "@opentelemetry/instrumentation-xml-http-request";
-import { XmlHttpVerbProperty } from "./patchXmlHttpRequest.ts";
+import type { ReadableSpan, SpanProcessor } from "@opentelemetry/sdk-trace-web";
 
-function setDeprecatedAttributesToUndefined(span: Span) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    span.setAttribute("http.method", undefined);
+class NormalizeAttributesSpanProcessor implements SpanProcessor {
+    onStart() {}
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    span.setAttribute("http.status_code", undefined);
+    onEnd(span: ReadableSpan) {
+        const httpUrl = span.attributes["http.url"];
+        const httpHost = span.attributes["http.host"];
+        const httpMethod = span.attributes["http.method"];
+        const httpScheme = span.attributes["http.scheme"];
+        const httpStatusCode = span.attributes["http.status_code"];
+        const httpStatusText = span.attributes["http.status_text"];
+        const httpTarget = span.attributes["http.target"];
+        const httpUserAgent = span.attributes["http.user_agent"];
+        const httpServerName = span.attributes["http.server_name"];
+        const httpRequestContentLength = span.attributes["http.request_content_length"];
+        const httpResponseContentLength = span.attributes["http.response_content_length"];
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    span.setAttribute("http.url", undefined);
-}
-
-export function _normalizeXmlHttpInstrumentationSpanAttributes(config: XMLHttpRequestInstrumentationConfig, normalizeFunction: XHRCustomAttributeFunction) {
-    if (config.applyCustomAttributesOnSpan) {
-        const baseFunction = config.applyCustomAttributesOnSpan;
-
-        config.applyCustomAttributesOnSpan = (...args) => {
-            baseFunction(...args);
-            normalizeFunction(...args);
-        };
-    } else {
-        config.applyCustomAttributesOnSpan = normalizeFunction;
-    }
-
-    return config;
-}
-
-export function normalizeXmlHttpInstrumentationSpanAttributes(config: XMLHttpRequestInstrumentationConfig) {
-    return _normalizeXmlHttpInstrumentationSpanAttributes(config, (span, xhr) => {
-        setDeprecatedAttributesToUndefined(span);
-
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        span.setAttribute("http.request.method", xhr[XmlHttpVerbProperty]);
-        span.setAttribute("http.response.status_code", xhr.status);
-        // The XMLHttpRequest API does not expose the request URL as a property.
-        span.setAttribute("url.full", xhr.responseURL);
-    });
-}
-
-export function _normalizeFetchInstrumentationSpanAttributes(config: FetchInstrumentationConfig, normalizeFunction: FetchCustomAttributeFunction) {
-    if (config.applyCustomAttributesOnSpan) {
-        const baseFunction = config.applyCustomAttributesOnSpan;
-
-        config.applyCustomAttributesOnSpan = (...args) => {
-            baseFunction(...args);
-            normalizeFunction(...args);
-        };
-    } else {
-        config.applyCustomAttributesOnSpan = normalizeFunction;
-    }
-
-    return config;
-}
-
-export function normalizeFetchInstrumentationSpanAttributes(config: FetchInstrumentationConfig) {
-    return _normalizeFetchInstrumentationSpanAttributes(config, (span, request, result) => {
-        setDeprecatedAttributesToUndefined(span);
-
-        span.setAttribute("http.request.method", request.method ?? "GET");
-        span.setAttribute("http.response.status_code", result.status ?? 0);
-
-        if (request instanceof Request) {
-            const requestUrl = (request as Request).url;
-            const url = new URL(requestUrl);
-
-            span.setAttribute("url.full", requestUrl);
-            span.setAttribute("url.scheme", url.protocol);
-            span.setAttribute("http.host", `${url.hostname}${!url.port || url.port === "" ? "" : ":"}${url.port}`);
-            span.setAttribute("server.address", url.hostname);
-            span.setAttribute("server.port", url.port);
-
-            const userAgent = (request as Request).headers?.get("User-Agent");
-
-            if (userAgent) {
-                span.setAttribute("http.user_agent", userAgent);
-            }
+        if (httpUrl) {
+            span.attributes["url.full"] = httpUrl;
+            delete span.attributes["http.url"];
         }
-    });
+
+        if (httpHost) {
+            span.attributes["http.request.header.host"] = httpHost;
+            delete span.attributes["http.host"];
+        }
+
+        if (httpMethod) {
+            span.attributes["http.request.method"] = httpMethod;
+            delete span.attributes["http.method"];
+        }
+
+        if (httpScheme) {
+            span.attributes["url.scheme"] = httpScheme;
+            delete span.attributes["http.scheme"];
+        }
+
+        if (httpStatusCode) {
+            span.attributes["http.response.status_code"] = httpStatusCode;
+            delete span.attributes["http.status_code"];
+        }
+
+        if (httpStatusText) {
+            delete span.attributes["http.status_text"];
+        }
+
+        if (httpTarget) {
+            span.attributes["url.query"] = httpTarget;
+            delete span.attributes["http.target"];
+        }
+
+        if (httpUserAgent) {
+            span.attributes["user_agent.original"] = httpUserAgent;
+            delete span.attributes["http.user_agent"];
+        }
+
+        if (httpServerName) {
+            span.attributes["server.address"] = httpServerName;
+            delete span.attributes["http.server_name"];
+        }
+
+        if (httpRequestContentLength) {
+            span.attributes["http.request.header.content-length"] = httpUserAgent;
+            delete span.attributes["http.request_content_length"];
+        }
+
+        if (httpResponseContentLength) {
+            span.attributes["http.response.header.content-length"] = httpResponseContentLength;
+            delete span.attributes["http.response_content_length"];
+        }
+    }
+
+    forceFlush() {
+        return Promise.resolve();
+    }
+
+    shutdown() {
+        return Promise.resolve();
+    }
 }
+
+export const normalizeAttributesSpanProcessor = new NormalizeAttributesSpanProcessor();
