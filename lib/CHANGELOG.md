@@ -1,5 +1,12 @@
 # @workleap/honeycomb
 
+## 5.1.0
+
+### Minor Changes
+
+- [#51](https://github.com/workleap/wl-honeycomb-web/pull/51) [`9fabcf3`](https://github.com/workleap/wl-honeycomb-web/commit/9fabcf3692c13295d24b30a660f58c7f16671c41) Thanks [@patricklafrance](https://github.com/patricklafrance)! - - Added a session id span attribute (`app.session.id`) to correlate anonynous and authenticated traces.
+  - Normalized a few of open telemetry http span attributes. Related to https://github.com/workleap/wl-honeycomb-web/issues/37.
+
 ## 5.0.2
 
 ### Patch Changes
