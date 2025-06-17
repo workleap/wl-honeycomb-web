@@ -57,21 +57,6 @@ registerHoneycombInstrumentation(
 
 The `registerHoneycombInstrumentation(namespace, serviceName, apiServiceUrls, options)` function can be used as shown in the previous example, however, if you wish to customize the default configuration, the function also accepts a few predefined options to help with that 👇
 
-### `sessionId`
-
-- **Type**: `string`
-- **Default**: A uuid will be generated.
-
-Set the `app.session.id` span attribute.
-
-```ts !#4
-import { registerHoneycombInstrumentation } from "@workleap/honeycomb";
-
-registerHoneycombInstrumentation("sample", "my-app", [/.+/g,], {
-    sessionId: "my-session-id"
-});
-```
-
 ### `proxy`
 
 - **Type**: `string`
