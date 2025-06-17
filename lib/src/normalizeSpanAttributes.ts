@@ -62,7 +62,7 @@ class NormalizeAttributesSpanProcessor implements SpanProcessor {
         }
 
         if (httpRequestContentLength) {
-            span.attributes["http.request.header.content-length"] = httpUserAgent;
+            span.attributes["http.request.header.content-length"] = httpRequestContentLength;
             delete span.attributes["http.request_content_length"];
         }
 
