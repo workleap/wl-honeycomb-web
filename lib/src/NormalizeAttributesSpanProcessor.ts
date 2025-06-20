@@ -1,4 +1,5 @@
 import type { ReadableSpan, SpanProcessor } from "@opentelemetry/sdk-trace-web";
+import { normalizeUrl } from "./normalizeUrl.ts";
 
 // Based on: https://opentelemetry.io/docs/specs/semconv/registry/attributes/http.
 class NormalizeAttributesSpanProcessor implements SpanProcessor {
@@ -20,6 +21,12 @@ class NormalizeAttributesSpanProcessor implements SpanProcessor {
         if (httpUrl) {
             span.attributes["url.full"] = httpUrl;
             delete span.attributes["http.url"];
+
+            // This is a "templated" URL for the Honeycomb "launchpad" feature.
+            // By providing "normalized" URLs we hope that specific URLs will stop showing up in sections like
+            // "slowest requests by endpoint" or "pages with most events".
+            // We would rather have Honeycomb showing URLs identifying general trends.
+            span.attributes["http.route"] = normalizeUrl(httpUrl.toString());
         }
 
         if (httpHost) {
