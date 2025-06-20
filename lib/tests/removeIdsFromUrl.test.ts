@@ -4,13 +4,13 @@ import { removeIdsFromUrl } from "../src/removeIdsFromUrl.ts";
 test.concurrent("case 1", ({ expect }) => {
     const result = removeIdsFromUrl("https://api.performance.workleap.com/app/getManagerReview?reviewCycleId=681bde2d32652ec23d59ea24&revieweeId=186bc69e-9545-4713-96f2-d9d4ca848ab1");
 
-    expect(result).toBe("https://api.performance.workleap.com/app/getManagerReview?reviewCycleId={id}&revieweeId={guid}");
+    expect(result).toBe("https://api.performance.workleap.com/app/getManagerReview?reviewCycleId={shortid}&revieweeId={guid}");
 });
 
 test.concurrent("case 2", ({ expect }) => {
     const result = removeIdsFromUrl("https://api.officevibe.workleap.com/custompolls/api/custom-polls/templates/officevibe/recurrent?templateIds=68472b1d537193e7b394ac08&templateIds=60da073879acd1558cf0fb0d");
 
-    expect(result).toBe("https://api.officevibe.workleap.com/custompolls/api/custom-polls/templates/officevibe/recurrent?templateIds={id}&templateIds={id}");
+    expect(result).toBe("https://api.officevibe.workleap.com/custompolls/api/custom-polls/templates/officevibe/recurrent?templateIds={shortid}&templateIds={shortid}");
 });
 
 test.concurrent("case 3", ({ expect }) => {
