@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 5.2.0
+
+### Minor Changes
+
+- [#57](https://github.com/workleap/wl-honeycomb-web/pull/57) [`ae5c0d2`](https://github.com/workleap/wl-honeycomb-web/commit/ae5c0d209ca8222c242d35fad18f0f95cd6ad3ba) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Added a templated `http.router` attribute to Fetch and XHR requests. The goal of this attribute is to generalized the URLs used for Honeycomb's Launchpad features like ""slowest requests by endpoint" and "pages with most events".
+
 ## 5.1.1
 
 ### Patch Changes
