@@ -1,5 +1,11 @@
 # @workleap/honeycomb
 
+## 5.2.1
+
+### Patch Changes
+
+- [#59](https://github.com/workleap/wl-honeycomb-web/pull/59) [`b2cba06`](https://github.com/workleap/wl-honeycomb-web/commit/b2cba06bf5dbb70fdcfc53fbc4bfb3d55b14967c) Thanks [@patricklafrance](https://github.com/patricklafrance)! - Renamed {id} for {shortid}
+
 ## 5.2.0
 
 ### Minor Changes
