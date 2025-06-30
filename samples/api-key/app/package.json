@@ -2,12 +2,12 @@
     "name": "@api-key/app",
     "author": "Workleap",
     "version": "0.0.0",
-    "description": "Default Honeycomb instrumentation for Workleap's web applications.",
+    "description": "Sample application to tests the Honeycomb library with a setup using an api-key.",
     "private": true,
     "license": "Apache-2.0",
     "type": "module",
     "scripts": {
-        "dev": "nodemon",
+        "dev": "rsbuild dev --config rsbuild.dev.ts",
         "build": "pnpm build:rsbuild && pnpm build:copy-public-files",
         "build:rsbuild": "rsbuild build --config rsbuild.build.ts",
         "build:copy-public-files": "copyfiles -u 1 public/favicon.png dist",
@@ -36,10 +36,6 @@
         "copyfiles": "2.4.1",
         "eslint": "8.57.0",
         "http-server": "14.1.1",
-        "nodemon": "3.1.10",
         "typescript": "5.8.3"
-    },
-    "engines": {
-        "node": ">=22.0.0"
     }
 }
