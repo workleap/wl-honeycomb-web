@@ -2,7 +2,7 @@
     "name": "@proxy/app",
     "author": "Workleap",
     "version": "0.0.0",
-    "description": "Default Honeycomb instrumentation for Workleap's web applications.",
+    "description": "Sample application to tests the Honeycomb library with a setup using a proxy to send the traces to Honeycomb.",
     "private": true,
     "license": "Apache-2.0",
     "type": "module",
