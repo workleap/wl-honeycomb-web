@@ -7,7 +7,7 @@
     "license": "Apache-2.0",
     "type": "module",
     "scripts": {
-        "dev": "nodemon",
+        "dev": "rsbuild dev --config rsbuild.dev.ts",
         "build": "pnpm build:rsbuild && pnpm build:copy-public-files",
         "build:rsbuild": "rsbuild build --config rsbuild.build.ts",
         "build:copy-public-files": "copyfiles -u 1 public/favicon.png dist",
@@ -36,7 +36,6 @@
         "copyfiles": "2.4.1",
         "eslint": "8.57.0",
         "http-server": "14.1.1",
-        "nodemon": "3.1.10",
         "typescript": "5.8.3"
     },
     "engines": {
