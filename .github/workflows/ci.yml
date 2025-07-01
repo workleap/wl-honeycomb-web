@@ -51,7 +51,7 @@ jobs:
       - name: Lint packages & samples
         run: pnpm lint
 
-      - name: Build lib
+      - name: Build library
         run: pnpm build-lib
 
       - name: Build api-key sample
@@ -60,7 +60,7 @@ jobs:
       - name: Build proxy sample
         run: pnpm build-proxy
 
-      - name: Test lib
+      - name: Test library
         run: pnpm test
 
       - name: Save Turborepo cache

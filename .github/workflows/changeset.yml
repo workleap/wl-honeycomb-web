@@ -47,7 +47,7 @@ jobs:
             ${{ runner.os }}-turborepo-
           path: .turbo
 
-      - name: Build packages
+      - name: Build library
         run: pnpm build-lib
 
       - name: Save Turborepo cache
