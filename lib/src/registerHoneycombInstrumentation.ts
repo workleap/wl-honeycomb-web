@@ -152,7 +152,7 @@ export function registerHoneycombInstrumentation(namespace: string, serviceName:
     // This is a custom field recommended by Honeycomb to organize the data.
     setGlobalSpanAttribute("service.namespace", namespace);
 
-    // Indicates to the host applications that the honeycomb instrumentation
+    // Indicates to the host applications that the Honeycomb instrumentation
     // has been registered.
     // It's useful in cases where an "add-on", like the platform widgets needs
     // to know whether or not the host application is using Honeycomb.
